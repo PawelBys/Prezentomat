@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prezentomat", "Prezentomat.csproj", "{34C24674-49ED-4E3A-B54E-07E8077184B1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{34C24674-49ED-4E3A-B54E-07E8077184B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34C24674-49ED-4E3A-B54E-07E8077184B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34C24674-49ED-4E3A-B54E-07E8077184B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34C24674-49ED-4E3A-B54E-07E8077184B1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E36BFF88-E186-4220-AD1C-6BC98FE5965F}
+	EndGlobalSection
+EndGlobal
