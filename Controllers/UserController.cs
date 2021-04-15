@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Prezentomat.Models;
 using Prezentomat.DataContext;
-using System.Data.SqlClient;
+using System;
 
 namespace Prezentomat.Controllers
 {
     public class UserController : Controller
     {
         ApplicationDbContext _context;
-        private ApplicationDbContext db = new ApplicationDbContext();
-
 
         public UserController()
         {
@@ -31,6 +27,26 @@ namespace Prezentomat.Controllers
         public ActionResult Login()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(UserClass uss)
+        {
+            var email = "";
+            var password = "";
+            try
+            {
+                email = _context.UserDetails.Where(p => p.email == uss.email).Single().email;
+                password = _context.UserDetails.Where(p => p.password == uss.password).Single().password;
+            }catch(Exception e){;}
+            if (!email.Equals("")&&!password.Equals(""))
+            {
+                return View("UserView");
+            }
+            else
+            {
+                return View("Regist");
+            }
         }
 
         public ActionResult Regist()
