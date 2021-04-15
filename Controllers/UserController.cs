@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Prezentomat.Models;
 using Prezentomat.DataContext;
+using System.Data.SqlClient;
 
 namespace Prezentomat.Controllers
 {
@@ -18,9 +19,24 @@ namespace Prezentomat.Controllers
         }
 
         // GET: User
+        
         public ActionResult UserView()
         {
             return View(_context.UserDetails.ToList());
         }
+
+       
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        public ActionResult Regist()
+        {
+            return View();
+        }
+
+
+
     }
 }
