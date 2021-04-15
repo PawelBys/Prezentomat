@@ -31,23 +31,26 @@ namespace Prezentomat.Controllers
             return View();
         }
 
+        //niby dziala poprawnie ale nie otwiera sie user view bo tam jest blad 
         [HttpPost]
-        public ActionResult Login(UserClass uss)
+        public ActionResult Login([Bind(Include = "email,password")] UserClass userClass)
         {
             var email = "";
             var password = "";
             try
             {
-                email = _context.UserDetails.Where(p => p.email == uss.email).Single().email;
-                password = _context.UserDetails.Where(p => p.password == uss.password).Single().password;
+                email = _context.UserDetails.Where(p => p.email == userClass.email).Single().email;
+                password = _context.UserDetails.Where(p => p.password == userClass.password).Single().password;
             }catch(Exception e){;}
             if (!email.Equals("")&&!password.Equals(""))
             {
+                //zalogowany
                 return View("UserView");
             }
             else
             {
-                return View("Regist");
+                //zle dane
+                return RedirectToAction("Regist");
             }
         }
 
@@ -58,7 +61,7 @@ namespace Prezentomat.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Regist([Bind(Include = "userID,email,password,firstname,lastname,birthdate")] UserClass userClass )
+        public ActionResult Regist([Bind(Include = "userID,email,password,firstname,lastname,birthdate")] UserClass userClass)
         {
             if (ModelState.IsValid)
             {
