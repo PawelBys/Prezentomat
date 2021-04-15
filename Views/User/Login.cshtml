@@ -1,19 +1,29 @@
-﻿
+﻿@model Prezentomat.Models.UserClass
 @{
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+@using (Html.BeginForm())
+{
 <div class="login-box">
     <h1>Login</h1>
+       
     <div class="textbox">
-        <input type="text" placeholder="Email" name="" value="" />
+        <label>Email</label>
+        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
     </div>
-
+   
     <div class="textbox">
-        <input type="password" placeholder="Password" name="" value="" />
-    </div>
-
-    <input class="btn" type="button" name="" value="Sign in" />
+        <label>Password</label>
+        @Html.PasswordFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+    </div>    
+   
+     <input type="submit" value="Sign in" class="btn" />
 
 </div>
+}
+

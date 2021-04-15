@@ -1,53 +1,59 @@
-﻿
+﻿@using Prezentomat.Models;
+@model Prezentomat.Models.UserClass
 @{
     ViewBag.Title = "Regist";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="login-box">
-    <h1>Register</h1>
-    <div class="textbox">
-        <label>Email</label>
-        <input type="text" placeholder="Email" name="" value="" />
+@using (Html.BeginForm())
+{
+    <div class="login-box">
+        <h1>Register</h1>
+        <div class="textbox">
+            <label>Email</label>
+            @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="textbox">
+            <label>Password</label>
+            @Html.PasswordFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="textbox">
+            <label>Repeat Password</label>
+            @Html.PasswordFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="textbox">
+            <label>Firstname</label>
+            @Html.EditorFor(model => model.firstname, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.firstname, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="textbox">
+            <label>Lastname</label>
+            @Html.EditorFor(model => model.lastname, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.lastname, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="textbox">
+            <label>Birthdate</label>
+            @Html.EditorFor(model => model.birthdate, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.birthdate, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="textbox">
+            <label>Gender</label>
+            @Html.DropDownListFor(model => model.gender, new SelectList(Enum.GetValues(typeof(Gender)), "Select Gender"))
+            @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+        </div>
+
+        <input class="btn" type="submit" name="" value="Sign on" />
+
     </div>
 
-    <div class="textbox">
-        <label>Password</label>
-        <input type="password" placeholder="Password" name="" value="" />
-    </div>
-
-    <div class="textbox">
-        <label>Repeat Password</label>
-        <input type="password" placeholder="Repeat Password" name="" value="" />
-    </div>
-
-    <div class="textbox">
-        <label>Firstname</label>
-        <input type="text" placeholder="Firstname" name="" value="" />
-    </div>
-
-    <div class="textbox">
-        <label>Lastname</label>
-        <input type="text" placeholder="Lastname" name="" value="" />
-    </div>
-
-    <div class="textbox">
-        <label>Birthdate</label>
-        <input type="date" placeholder="Birthdate" name="" value="" />
-    </div>
-
-    <div class="textbox">
-        <label>Gender</label>
-        <br />
-        <input type="radio" id="male" name="Gender" value="male">
-        <label for="male">Male</label><br>
-        <input type="radio" id="female" name="Gender" value="female">
-        <label for="female">Female</label><br>
-        <input type="radio" id="other" name="Gender" value="other">
-        <label for="other">Other</label>
-    </div>
-
-    <input class="btn" type="button" name="" value="Sign on" />
-
-</div>
+}
 
