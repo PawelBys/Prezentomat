@@ -11,6 +11,8 @@ namespace Prezentomat.Controllers
     {
         ApplicationDbContext _context;
 
+       
+
         public UserController()
         {
             _context = new ApplicationDbContext();
@@ -61,8 +63,8 @@ namespace Prezentomat.Controllers
             if (ModelState.IsValid)
             {
                 //save date to db
-                db.UserDetails.Add(userClass);
-                db.SaveChanges();
+                _context.UserDetails.Add(userClass);
+                _context.SaveChanges();
                 return RedirectToAction("Login");
             }
 

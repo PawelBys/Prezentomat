@@ -18,7 +18,7 @@ namespace Prezentomat.Models
         public string firstname { get; set; }
         public string  lastname { get; set; }
         public DateTime birthdate { get; set; }
-        public Gender gender { get; set; }
+        public char gender { get; set; }
         public int wallet { get; set; }
     }
 }
