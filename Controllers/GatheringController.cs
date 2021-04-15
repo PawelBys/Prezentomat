@@ -19,7 +19,7 @@ namespace Prezentomat.Controllers
         public ActionResult Index()
         {
 
-            var maxZbiorka = db.GatheringDetails.Where(p => p.target_amount == 50).Single();
+            var maxZbiorka = db.GatheringDetails.Where(p => p.target_amount == 30).Single().target_amount;
 
             ViewBag.Zbiorka = maxZbiorka; /// jak to wyswietlic we view?
 
