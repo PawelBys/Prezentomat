@@ -12,6 +12,7 @@ namespace Prezentomat.Models
     public class GatheringClass
     {
         [Key]
+
         public int current_amount { get; set; }
         public int target_amount { get; set; }
         public DateTime finish_date { get; set; }
