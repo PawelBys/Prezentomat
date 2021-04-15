@@ -220,6 +220,13 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\User\UserView.cshtml" />
+    <Content Include="Views\Gathering\Gathering.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Gathering\Create.cshtml" />
+    <Content Include="Views\Gathering\Delete.cshtml" />
+    <Content Include="Views\Gathering\Details.cshtml" />
+    <Content Include="Views\Gathering\Edit.cshtml" />
+    <Content Include="Views\Gathering\Index.cshtml" />
     <Content Include="Views\Gathering\GatheringView.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Regist.cshtml" />

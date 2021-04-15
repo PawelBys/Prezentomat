@@ -1,0 +1,34 @@
+﻿@model Prezentomat.Models.GatheringClass
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>GatheringClass</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.target_amount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.target_amount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.finish_date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.finish_date)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.current_amount }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

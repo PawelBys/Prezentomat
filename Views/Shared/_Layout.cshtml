@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Prezentomat</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -22,12 +22,13 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Login", "Login", "User")</li>
-                    <li>@Html.ActionLink("Regist", "Regist", "User")</li>
+                    <li>@Html.ActionLink("Strona Domowa", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Zbiórki", "Index", "Gathering")</li>
+                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
                 </ul>
+                @Html.Partial("_LoginPartial")   @*//odniesienie do widoku częściowego gdzie są linki do logowania i rejestracji
+                 #########################################                                     
+                // tam też trzeba umieścić teskt typu " cześć Paweł " - rozpoznanie użytkownika, zeby było wiadomo kto jest zalogowany*@
             </div>
         </div>
     </div>
@@ -35,7 +36,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - WAT WCY18IJ1S1</p>
         </footer>
     </div>
 
