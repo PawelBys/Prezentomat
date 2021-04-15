@@ -19,7 +19,7 @@ namespace Prezentomat.Controllers
         public ActionResult Index()
         {
 
-            var maxZbiorka = db.GatheringDetails.Where(p => p.target_amount == 30).Single().target_amount;
+            var maxZbiorka = db.GatheringDetails.Where(p => p.target_amount == 50).Single();
 
             ViewBag.Zbiorka = maxZbiorka; /// jak to wyswietlic we view?
 
@@ -56,6 +56,7 @@ namespace Prezentomat.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 db.GatheringDetails.Add(gatheringClass);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -88,9 +89,11 @@ namespace Prezentomat.Controllers
         {
             if (ModelState.IsValid)
             {
+                System.Console.WriteLine("zapisa do bazy");
                 db.Entry(gatheringClass).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
+                
             }
             return View(gatheringClass);
         }

@@ -12,6 +12,8 @@ namespace Prezentomat.Controllers
     public class UserController : Controller
     {
         ApplicationDbContext _context;
+        private ApplicationDbContext db = new ApplicationDbContext();
+
 
         public UserController()
         {
@@ -35,7 +37,21 @@ namespace Prezentomat.Controllers
         {
             return View();
         }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Regist([Bind(Include = "userID,email,password,firstname,lastname,birthdate")] UserClass userClass )
+        {
+            if (ModelState.IsValid)
+            {
+                //save date to db
+                db.UserDetails.Add(userClass);
+                db.SaveChanges();
+                return RedirectToAction("Login");
+            }
 
+            return View(userClass);
+        }
 
 
     }

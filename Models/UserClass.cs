@@ -11,7 +11,7 @@ namespace Prezentomat.Models
     public class UserClass
     {
         [Key]
-        public int userID { get; set; }
+        public int user_id { get; set; }
         public string email { get; set; }
         public string password { get; set; }
         public string firstname { get; set; }
