@@ -20,9 +20,12 @@ namespace Prezentomat.Controllers
 
         // GET: User
         
-        public ActionResult UserView()
+        public ActionResult UserView(int id)
         {
-            return View(_context.UserDetails.ToList());
+            var user_name = _context.UserDetails.Where(p => p.user_id == id).Single().firstname;
+            ViewBag.user_name = user_name;
+
+            return View(_context.UserDetails.Where(p => p.user_id == id).Single());
         }
 
        
@@ -37,15 +40,18 @@ namespace Prezentomat.Controllers
         {
             var email = "";
             var password = "";
+            var user_id =0;
             try
             {
                 email = _context.UserDetails.Where(p => p.email == userClass.email).Single().email;
                 password = _context.UserDetails.Where(p => p.password == userClass.password).Single().password;
-            }catch(Exception e){;}
+                user_id = _context.UserDetails.Where(p => p.email == userClass.email).Single().user_id;
+            }
+            catch(Exception e){;}
             if (!email.Equals("")&&!password.Equals(""))
             {
                 //zalogowany
-                return View("UserView");
+                return RedirectToAction("UserView", new { id = user_id });
             }
             else
             {
