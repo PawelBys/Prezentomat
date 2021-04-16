@@ -179,6 +179,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\GatheringClass.cs" />
     <Compile Include="Models\UserClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -220,9 +221,18 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\User\UserView.cshtml" />
+    <Content Include="Views\Gathering\Gathering.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Gathering\Create.cshtml" />
+    <Content Include="Views\Gathering\Delete.cshtml" />
+    <Content Include="Views\Gathering\Details.cshtml" />
+    <Content Include="Views\Gathering\Edit.cshtml" />
+    <Content Include="Views\Gathering\Index.cshtml" />
     <Content Include="Views\Gathering\GatheringView.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Regist.cshtml" />
+    <Content Include="Views\Shared\_LayoutUser.cshtml" />
+    <Content Include="Views\Shared\_UserPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
