@@ -44,11 +44,11 @@ namespace Prezentomat.Controllers
             try
             {
                 email = _context.UserDetails.Where(p => p.email == userClass.email).Single().email;
-                password = _context.UserDetails.Where(p => p.password == userClass.password).Single().password;
+                password = _context.UserDetails.Where(p => p.email == userClass.email).Single().password;
                 user_id = _context.UserDetails.Where(p => p.email == userClass.email).Single().user_id;
             }
             catch(Exception e){;}
-            if (!email.Equals("")&&!password.Equals(""))
+            if (email.Equals(userClass.email)&&password.Equals(userClass.password))
             {
                 //zalogowany
                 return RedirectToAction("UserView", new { id = user_id });
