@@ -1,14 +1,13 @@
 ﻿@model Prezentomat.Models.UserClass
 
 @{
-    ViewBag.Title = "UserView";
+    ViewBag.Title = "Strona użytkownika";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 
-<h2>UserView</h2>
 
 <div>
-    <h4>UserClass</h4>
+    <h4>Użytkownik</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -62,7 +61,7 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.user_id }) | <!--blad w tej lini-->
+    <!--blad w tej lini-->
     @Html.ActionLink("Back to List", "Index")
 </p>
 

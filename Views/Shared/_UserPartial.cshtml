@@ -1,14 +1,17 @@
 ﻿
 @{
     ViewBag.Title = "_UserPartial";
+    var user_name = ViewBag.user_name;
 }
 
-<ul class="nav navbar-nav navbar-right">
-    <li>
-    <li>@Html.ActionLink("Uzytkownik(nick)", "UserView", "User")</li>
-    
-    </li>
+@*tutaj trzeba znaleźć style z bootstrapa chyba pasujące, żeby to wyglądało ładnie jak cały layout*@
 
-</ul>
+<div style="font-size:20px; float:right; color:white; padding:10px"> 
+   
+     Witaj @user_name
+    
+    
+    
+</div>
 
 
