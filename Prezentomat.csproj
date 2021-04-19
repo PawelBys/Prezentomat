@@ -189,13 +189,18 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\FlexStyle.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\1.jpg" />
-    <Content Include="Images\2.jpg" />
-    <Content Include="Images\3.jpg" />
+    <Content Include="Images\facebook.png" />
+    <Content Include="Images\instagram.png" />
+    <Content Include="Images\login.png" />
+    <Content Include="Images\logo-prezentomat.png" />
+    <Content Include="Images\registration.png" />
+    <Content Include="Images\twitter.png" />
+    <Content Include="Images\youtube.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -236,6 +241,7 @@
     <Content Include="Views\User\Regist.cshtml" />
     <Content Include="Views\Shared\_LayoutUser.cshtml" />
     <Content Include="Views\Shared\_UserPartial.cshtml" />
+    <Content Include="Views\Shared\_HomeLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

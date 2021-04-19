@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html lang="pl-PL">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Prezentomat</title>
+    @Styles.Render("~/Content/style")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="Flex-container">
+        <header>
+            <div class="Flex-header-logo">
+                <a href="@Url.Action("Index", "Home")">
+                    <img src="@Url.Content("~/Images/logo-prezentomat.png")" />
+                </a>
+            </div>
+            <div class="Flex-header-buttons">
+                @Html.ActionLink("Strona główna", "HomePage", "Home", new { @class = "nav-button" })
+                @Html.ActionLink("Zaloguj", "LoginPage", "Home", new { @class = "nav-button" })
+                @Html.ActionLink("Zarejestruj", "RegisterPage", "Home", new { @class = "nav-button" })
+            </div>
+            <div class="Flex-header-socials">
+                <img src="@Url.Content("~/Images/login.png")" />
+                @Html.ActionLink("Zaloguj", "LoginPage", "Home", new { @class = "nav-button" })
+                <img src="@Url.Content("~/Images/registration.png")" />
+                @Html.ActionLink("Zarejestruj", "RegisterPage", "Home", new { @class = "nav-button" })
+            </div>
+        </header>
+            @RenderBody()
+        <footer>
+            <p>&copy; @DateTime.Now.Year - WAT WCY18IJ1S1</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
