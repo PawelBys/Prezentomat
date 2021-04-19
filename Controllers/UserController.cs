@@ -20,8 +20,9 @@ namespace Prezentomat.Controllers
 
         // GET: User
         
-        public ActionResult UserView(int id)
+        public ActionResult UserView(/*int id*/)
         {
+            int id = (int)Session["UserID"];
             var user_name = _context.UserDetails.Where(p => p.user_id == id).Single().firstname;
             ViewBag.user_name = user_name;
 
@@ -51,7 +52,8 @@ namespace Prezentomat.Controllers
             if (email.Equals(userClass.email)&&password.Equals(userClass.password))
             {
                 //zalogowany
-                return RedirectToAction("UserView", new { id = user_id });
+                Session["UserID"] = user_id;
+                return RedirectToAction("UserView"/*, new { id = user_id }*/);
             }
             else
             {
