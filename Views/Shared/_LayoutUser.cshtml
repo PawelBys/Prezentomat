@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    var user_name = ViewBag.user_name;
+}
+
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -9,22 +14,30 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Gathering", new { area = "" }, new { @class = "navbar-brand" })
+                @*tymczasowo, tu trzeba zrobić stronę główną dla użytkownika*@
+                @Html.ActionLink("Prezentomat", "Index", "User", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Zbiórki", "Index", "Gathering")</li>
                 </ul>
-                @Html.Partial("_UserPartial")   @*//odniesienie do widoku częściowego gdzie są linki do logowania i rejestracji
-                     #########################################
-                    // tam też trzeba umieścić teskt typu " cześć Paweł " - rozpoznanie użytkownika, zeby było wiadomo kto jest zalogowany*@
+                <div class="nav navbar-nav navbar-right" style="/*font-size:20px; float:right; color:white; padding:10px">
+
+
+                    
+                    Witaj @user_name
+                    @Html.ActionLink("Wyloguj", "Logout", "User")
+                    
+
+
+                </div>  
             </div>
         </div>
     </div>

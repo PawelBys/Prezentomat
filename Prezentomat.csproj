@@ -194,10 +194,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\admin.png" />
+    <Content Include="Images\at.png" />
+    <Content Include="Images\birthday.png" />
     <Content Include="Images\facebook.png" />
     <Content Include="Images\instagram.png" />
     <Content Include="Images\login.png" />
     <Content Include="Images\logo-prezentomat.png" />
+    <Content Include="Images\name.png" />
+    <Content Include="Images\padlock.png" />
     <Content Include="Images\registration.png" />
     <Content Include="Images\twitter.png" />
     <Content Include="Images\youtube.png" />
@@ -224,13 +229,9 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\User\UserView.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Gathering\Gathering.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Gathering\Create.cshtml" />
     <Content Include="Views\Gathering\Delete.cshtml" />
     <Content Include="Views\Gathering\Details.cshtml" />
@@ -240,7 +241,6 @@
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Regist.cshtml" />
     <Content Include="Views\Shared\_LayoutUser.cshtml" />
-    <Content Include="Views\Shared\_UserPartial.cshtml" />
     <Content Include="Views\Shared\_HomeLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -1,44 +1,50 @@
 ﻿@model Prezentomat.Models.UserClass
 @{
     ViewBag.Title = "Login";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 
+    @{ @*@using (Html.BeginForm()) { }
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+    @Html.TextBoxFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+    @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
+    @Html.PasswordFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })*@
+     }
 
-@using (Html.BeginForm())
-{
-<div class="form-horizontal">
-    <div class="loginbox">
-        <h2>Zaloguj</h2>
 
+<main>
+    @using (Html.BeginForm())
+    {
+        <h1>Prezentomat</h1>
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            <div class="textbox">
-                @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.AntiForgeryToken()
+        <div class="Flex-box-row">
+            <div class="Flex-box-col">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                Email
+                <div class="Flex-box-field">
+                    <img src="~/Images/at.png" />
+                    @Html.TextBoxFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
                 </div>
-            </div>
-        </div>
-        <!---->
-        <div class="form-group">
-            <div class="textbox">
-                @Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
+                Hasło
+                <div class="Flex-box-field">
+                    <img src="~/Images/padlock.png" />
+                    @Html.PasswordFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
                 </div>
+                <div class="Flex-box-checkbox">
+                    @Html.CheckBox("isActive", false)
+                    Zapamiętaj mnie!
+                </div>
+                <input type="submit" value="Zaloguj" />
             </div>
         </div>
+    }
+</main>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Sign in" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-</div>
-}
 
