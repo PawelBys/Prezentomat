@@ -5,6 +5,7 @@ using Prezentomat.Models;
 using Prezentomat.DataContext;
 using System;
 using System.Web.Routing;
+using System.Web;
 
 namespace Prezentomat.Controllers
 {
@@ -34,13 +35,21 @@ namespace Prezentomat.Controllers
 
         // GET: User
         
-        public ActionResult UserView()
+        public ActionResult Index()
         {
-            id = (int)Session["UserID"];
-            user_name = _context.UserDetails.Where(p => p.user_id == id).Single().firstname;
-            ViewBag.user_name = user_name;
+            if (Session["UserID"] != null)
+            {
+                id = (int)Session["UserID"];
+                user_name = _context.UserDetails.Where(p => p.user_id == id).Single().firstname;
+                ViewBag.user_name = user_name;
 
-            return View(_context.UserDetails.Where(p => p.user_id == id).Single());
+                return View(_context.UserDetails.Where(p => p.user_id == id).Single());
+            }
+            else
+            {
+                return View("Login");
+            }
+            
         }
 
        
@@ -67,7 +76,7 @@ namespace Prezentomat.Controllers
             {
                 //zalogowany
                 Session["UserID"] = user_id;
-                return RedirectToAction("UserView"/*, new { id = user_id }*/);
+                return RedirectToAction("Index"/*, new { id = user_id }*/);
             }
             else
             {
