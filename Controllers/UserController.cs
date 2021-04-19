@@ -6,6 +6,7 @@ using Prezentomat.DataContext;
 using System;
 using System.Web.Routing;
 using System.Web;
+using Prezentomat.Classes;
 
 namespace Prezentomat.Controllers
 {
@@ -14,6 +15,7 @@ namespace Prezentomat.Controllers
         ApplicationDbContext _context;
         int id;
         string user_name;
+
 
         protected override IAsyncResult BeginExecute(RequestContext requestContext, AsyncCallback callback, object state)
         {
@@ -60,11 +62,12 @@ namespace Prezentomat.Controllers
 
         
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Login([Bind(Include = "email,password")] UserClass userClass)
         {
             var email = "";
             var password = "";
-            var user_id =0;
+            var user_id = 0;
             try
             {
                 email = _context.UserDetails.Where(p => p.email == userClass.email).Single().email;
@@ -72,7 +75,7 @@ namespace Prezentomat.Controllers
                 user_id = _context.UserDetails.Where(p => p.email == userClass.email).Single().user_id;
             }
             catch(Exception e){;}
-            if (email.Equals(userClass.email)&&password.Equals(userClass.password))
+            if (Hash.ComputeSha512Hash(email).Equals(userClass.email)&&Hash.ComputeSha512Hash(password).Equals(userClass.password))
             {
                 //zalogowany
                 Session["UserID"] = user_id;
@@ -97,7 +100,14 @@ namespace Prezentomat.Controllers
             if (ModelState.IsValid)
             {
                 //save date to db
-                _context.UserDetails.Add(userClass);
+                _context.UserDetails.Add(new UserClass() {
+                    user_id = userClass.user_id,
+                    email = Hash.ComputeSha512Hash(userClass.email),
+                    password = Hash.ComputeSha512Hash(userClass.password),
+                    firstname = Hash.ComputeSha512Hash(userClass.firstname),
+                    lastname = Hash.ComputeSha512Hash(userClass.lastname),
+                    birthdate = userClass.birthdate
+                });
                 _context.SaveChanges();
                 return RedirectToAction("Login");
             }

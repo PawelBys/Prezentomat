@@ -1,49 +1,34 @@
-﻿@{ 
+﻿@{
     var user_name = ViewBag.user_name;
 }
 
-
 <!DOCTYPE html>
-
-<html>
+<html lang="pl-PL">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Prezentomat</title>
+    @Styles.Render("~/Content/style")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @*tymczasowo, tu trzeba zrobić stronę główną dla użytkownika*@
-                @Html.ActionLink("Prezentomat", "Index", "User", new { area = "" }, new { @class = "navbar-brand" })
+    <div class="Flex-container">
+        <header>
+            <div class="Flex-header-logo">
+                <a href="@Url.Action("Index", "Home")">
+                    <img src="@Url.Content("~/Images/logo-prezentomat.png")" />
+                </a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Zbiórki", "Index", "Gathering")</li>
-                </ul>
-                <div class="nav navbar-nav navbar-right" style="/*font-size:20px; float:right; color:white; padding:10px">
+            <div class="Flex-header-buttons">
 
-
-                    
-                    Witaj @user_name
-                    @Html.ActionLink("Wyloguj", "Logout", "User")
-                    
-
-
-                </div>  
             </div>
-        </div>
-    </div>
-    <div class="container body-content">
+            <div class="Flex-header-socials">
+                Witaj @user_name!
+                <img src="@Url.Content("~/Images/door.png")" />
+                @Html.ActionLink("Wyloguj", "Logout", "User")
+            </div>
+        </header>
         @RenderBody()
-        <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - WAT WCY18IJ1S1</p>
         </footer>
@@ -54,3 +39,4 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
