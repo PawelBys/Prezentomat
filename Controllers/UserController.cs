@@ -4,15 +4,30 @@ using System.Web.Mvc;
 using Prezentomat.Models;
 using Prezentomat.DataContext;
 using System;
+using System.Web.Routing;
+using System.Web;
 
 namespace Prezentomat.Controllers
 {
     public class UserController : Controller
     {
         ApplicationDbContext _context;
+        int id;
+        string user_name;
 
-       
+        protected override IAsyncResult BeginExecute(RequestContext requestContext, AsyncCallback callback, object state)
+        {
+            //var Session = System.Web.HttpContext.Current.Session;
+            if(Session!=null)
+            {
+                id = (int)Session["UserID"];
+                user_name = _context.UserDetails.Where(p => p.user_id == id).Single().firstname;
+                ViewBag.user_name = user_name;
+            }
 
+
+            return base.BeginExecute(requestContext, callback, state);
+        }
         public UserController()
         {
             _context = new ApplicationDbContext();
@@ -20,12 +35,21 @@ namespace Prezentomat.Controllers
 
         // GET: User
         
-        public ActionResult UserView(int id)
+        public ActionResult Index()
         {
-            var user_name = _context.UserDetails.Where(p => p.user_id == id).Single().firstname;
-            ViewBag.user_name = user_name;
+            if (Session["UserID"] != null)
+            {
+                id = (int)Session["UserID"];
+                user_name = _context.UserDetails.Where(p => p.user_id == id).Single().firstname;
+                ViewBag.user_name = user_name;
 
-            return View(_context.UserDetails.Where(p => p.user_id == id).Single());
+                return View(_context.UserDetails.Where(p => p.user_id == id).Single());
+            }
+            else
+            {
+                return View("Login");
+            }
+            
         }
 
        
@@ -34,7 +58,7 @@ namespace Prezentomat.Controllers
             return View();
         }
 
-        //niby dziala poprawnie ale nie otwiera sie user view bo tam jest blad 
+        
         [HttpPost]
         public ActionResult Login([Bind(Include = "email,password")] UserClass userClass)
         {
@@ -51,7 +75,8 @@ namespace Prezentomat.Controllers
             if (email.Equals(userClass.email)&&password.Equals(userClass.password))
             {
                 //zalogowany
-                return RedirectToAction("UserView", new { id = user_id });
+                Session["UserID"] = user_id;
+                return RedirectToAction("Index"/*, new { id = user_id }*/);
             }
             else
             {
@@ -78,6 +103,13 @@ namespace Prezentomat.Controllers
             }
 
             return View(userClass);
+        }
+
+        public ActionResult Logout()
+        {
+            Session["UserID"] = null;
+
+            return RedirectToAction("Login");
         }
 
 

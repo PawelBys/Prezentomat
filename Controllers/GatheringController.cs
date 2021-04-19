@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Prezentomat.DataContext;
 using Prezentomat.Models;
 
@@ -14,6 +15,23 @@ namespace Prezentomat.Controllers
     public class GatheringController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        int id;
+        string user_name;
+
+        protected override IAsyncResult BeginExecute(RequestContext requestContext, AsyncCallback callback, object state)
+        {
+            var Session = System.Web.HttpContext.Current.Session;
+            if (Session != null)
+            {
+                id = (int)Session["UserID"];
+                user_name = db.UserDetails.Where(p => p.user_id == id).Single().firstname;
+                ViewBag.user_name = user_name;
+            }
+
+
+            return base.BeginExecute(requestContext, callback, state);
+        }
 
         // GET: Gathering
         public ActionResult Index()

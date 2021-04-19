@@ -18,12 +18,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Prezentomat", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Strona Domowa", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Zbiórki", "Index", "Gathering")</li>
+
+                    <li>@*@Html.ActionLink("Zbiórki", "Index", "Gathering")*@</li>
+
                     <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")   @*//odniesienie do widoku częściowego gdzie są linki do logowania i rejestracji
