@@ -4,15 +4,29 @@ using System.Web.Mvc;
 using Prezentomat.Models;
 using Prezentomat.DataContext;
 using System;
+using System.Web.Routing;
 
 namespace Prezentomat.Controllers
 {
     public class UserController : Controller
     {
         ApplicationDbContext _context;
+        int id;
+        string user_name;
 
-       
+        protected override IAsyncResult BeginExecute(RequestContext requestContext, AsyncCallback callback, object state)
+        {
+            //var Session = System.Web.HttpContext.Current.Session;
+            if(Session!=null)
+            {
+                id = (int)Session["UserID"];
+                user_name = _context.UserDetails.Where(p => p.user_id == id).Single().firstname;
+                ViewBag.user_name = user_name;
+            }
 
+
+            return base.BeginExecute(requestContext, callback, state);
+        }
         public UserController()
         {
             _context = new ApplicationDbContext();
@@ -20,10 +34,10 @@ namespace Prezentomat.Controllers
 
         // GET: User
         
-        public ActionResult UserView(/*int id*/)
+        public ActionResult UserView()
         {
-            int id = (int)Session["UserID"];
-            var user_name = _context.UserDetails.Where(p => p.user_id == id).Single().firstname;
+            id = (int)Session["UserID"];
+            user_name = _context.UserDetails.Where(p => p.user_id == id).Single().firstname;
             ViewBag.user_name = user_name;
 
             return View(_context.UserDetails.Where(p => p.user_id == id).Single());
