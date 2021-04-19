@@ -49,7 +49,7 @@ namespace Prezentomat.Controllers
             return View();
         }
 
-        //niby dziala poprawnie ale nie otwiera sie user view bo tam jest blad 
+        
         [HttpPost]
         public ActionResult Login([Bind(Include = "email,password")] UserClass userClass)
         {
@@ -94,6 +94,13 @@ namespace Prezentomat.Controllers
             }
 
             return View(userClass);
+        }
+
+        public ActionResult Logout()
+        {
+            Session["UserID"] = null;
+
+            return RedirectToAction("Login");
         }
 
 
