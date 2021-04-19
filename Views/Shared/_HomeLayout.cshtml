@@ -16,15 +16,13 @@
                 </a>
             </div>
             <div class="Flex-header-buttons">
-                @Html.ActionLink("Strona główna", "HomePage", "Home", new { @class = "nav-button" })
-                @Html.ActionLink("Zaloguj", "LoginPage", "Home", new { @class = "nav-button" })
-                @Html.ActionLink("Zarejestruj", "RegisterPage", "Home", new { @class = "nav-button" })
+                @Html.ActionLink("Strona główna", "Index", "Home")
             </div>
             <div class="Flex-header-socials">
                 <img src="@Url.Content("~/Images/login.png")" />
-                @Html.ActionLink("Zaloguj", "LoginPage", "Home", new { @class = "nav-button" })
+                @Html.ActionLink("Zaloguj", "Login", "User")
                 <img src="@Url.Content("~/Images/registration.png")" />
-                @Html.ActionLink("Zarejestruj", "RegisterPage", "Home", new { @class = "nav-button" })
+                @Html.ActionLink("Zarejestruj", "Regist", "User")
             </div>
         </header>
             @RenderBody()
