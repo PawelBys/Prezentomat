@@ -106,7 +106,7 @@ namespace Prezentomat.Controllers
                     password = Hash.ComputeSha512Hash(userClass.password),
                     firstname = Hash.ComputeSha512Hash(userClass.firstname),
                     lastname = Hash.ComputeSha512Hash(userClass.lastname),
-                    birthdate = userClass.birthdate
+                    birthdate = Hash.ComputeSha512Hash(userClass.birthdate.ToString())
                 });
                 _context.SaveChanges();
                 return RedirectToAction("Login");
