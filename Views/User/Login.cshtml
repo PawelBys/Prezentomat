@@ -32,7 +32,8 @@
                     Zapamiętaj mnie!
                 </div>
                 <input type="submit" value="Zaloguj" />
-                @Html.ValidationSummary(false, "")
+                @*@Html.ValidationSummary(false, "")*@
+                @Html.ValidationMessageFor(m => m.email, "", new { @class = "validation-summary-errors" })
 
             </div>
         </div>

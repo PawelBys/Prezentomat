@@ -62,7 +62,9 @@ namespace Prezentomat.Controllers
             return View();
         }
 
-        
+       
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login([Bind(Include = "email, password")] UserClass userClass)
@@ -92,11 +94,17 @@ namespace Prezentomat.Controllers
                 else
                 {
                     //zle dane
-                    return RedirectToAction("Regist");
+                    ModelState.AddModelError("email", "Email i hasło nie zgadzają się");
+                    return View(userClass);
                 }
             }
+            else
+            {
+                ModelState.AddModelError("email", "Niepoprawne dane");
+                return View(userClass);
+            }
 
-            return View(userClass);
+            return View();
         }
         
         public ActionResult Regist()
