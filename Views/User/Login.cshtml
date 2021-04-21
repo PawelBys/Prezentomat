@@ -27,13 +27,14 @@
                         @Html.PasswordFor(model => model.password, new { htmlAttributes = new { @class = "form-control" } })
                     </div>
                 </div>
-                    <div class="Flex-box-checkbox">
-                        @Html.CheckBox("isActive", false)
-                        Zapamiętaj mnie!
-                    </div>
-                    <input type="submit" value="Zaloguj" />
+                <div class="Flex-box-checkbox">
+                    @Html.CheckBox("isActive", false)
+                    Zapamiętaj mnie!
+                </div>
+                <input type="submit" value="Zaloguj" />
 
-                    @Html.ValidationSummary(false, "")
+                @*@Html.ValidationSummary(false, "")*@
+                @Html.ValidationMessageFor(m => m.email, "", new { @class = "validation-summary-errors" })
 
             </div>
         </div>

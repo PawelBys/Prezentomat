@@ -18,6 +18,7 @@
                 <a href="@Url.Action("Index", "User")">
                     <img src="@Url.Content("~/Images/logo-prezentomat.png")" />
                 </a>
+                <a id="menu-button" onclick="openAndCloseNav()">☰</a>
             </div>
             <div class="Flex-header-buttons">
 
@@ -28,15 +29,43 @@
                 @Html.ActionLink("Wyloguj", "Logout", "User")
             </div>
         </header>
+        <nav id="sidebar">
+            <div class="Clear-flex-box-col">
+                <div class="Flex-box-list-item">
+                    Witaj @user_name!
+                </div>
+                    <div class="Clear-flex-box-row">
+                        <div class="Flex-box-list-item">
+                            <img src="@Url.Content("~/Images/door.png")" />
+                            @Html.ActionLink("Wyloguj", "Logout", "User")
+                        </div>
+                        @* tutaj następne linki do listy, podobnie jak u powyżej *@
+                    </div>
+            </div>
+        </nav>
         @RenderBody()
         <footer>
-            <p>&copy; @DateTime.Now.Year - WAT WCY18IJ1S1</p>
+            <span>&copy; @DateTime.Now.Year - WAT WCY18IJ1S1</span>
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <script>
+        var flag = 0;
+        function openAndCloseNav() {
+            if (flag == 0) {
+                document.getElementById("sidebar").style.display = "block";
+                flag = 1;
+            }
+            else{
+                document.getElementById("sidebar").style.display = "none";
+                flag = 0;
+            }
+        }
+    </script>
 </body>
 </html>
 

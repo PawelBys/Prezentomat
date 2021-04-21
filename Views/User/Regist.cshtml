@@ -8,10 +8,10 @@
 <main>
     @using (Html.BeginForm())
     {
-        
+        @Html.AntiForgeryToken()
         <div class="Clear-flex-box-row">
 
-                        
+
             <div class="Flex-box-col">
                 Email
                 <div class="Clear-flex-box-col">
@@ -19,7 +19,7 @@
                         <img src="~/Images/at.png" />
                         @Html.TextBoxFor(model => model.email)
                     </div>
-                    
+
                 </div>
 
                 Hasło
@@ -28,7 +28,7 @@
                         <img src="~/Images/padlock.png" />
                         @Html.PasswordFor(model => model.password)
                     </div>
-                  
+
                 </div>
 
                 Powtórz Hasło
@@ -37,7 +37,7 @@
                         <img src="~/Images/padlock.png" />
                         @Html.PasswordFor(model => model.repeat_password)
                     </div>
-                   
+
                 </div>
 
                 Imię
@@ -46,7 +46,7 @@
                         <img src="~/Images/name.png" />
                         @Html.TextBoxFor(model => model.firstname)
                     </div>
-                   
+
                 </div>
 
                 Nazwisko
@@ -55,7 +55,7 @@
                         <img src="~/Images/name.png" />
                         @Html.TextBoxFor(model => model.lastname)
                     </div>
-                    
+
                 </div>
 
                 Data urodzenia
@@ -64,7 +64,7 @@
                         <img src="~/Images/birthday.png" />
                         @Html.TextBoxFor(model => model.birthdate)
                     </div>
-                    
+
                 </div>
 
                 <div class="Flex-box-checkbox">
@@ -73,13 +73,13 @@
                 </div>
                 <input type="submit" value="Zarejestruj" />
 
-                
+
 
                 @Html.ValidationSummary(false, "")
 
 
             </div>
-            </div>
+        </div>
     }
 
 </main>

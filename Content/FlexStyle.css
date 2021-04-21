@@ -1,6 +1,7 @@
 ﻿
 /*główny template -> _HomeLayout*/
 
+
 body {
     background-color: #282923;
     margin: 0;
@@ -47,8 +48,15 @@ body {
     flex-grow: 1;
 }
 
-.Flex-header-logo img{
-   margin: 3%;
+    .Flex-header-logo img{
+       margin: 3%;
+    }
+#menu-button {
+   display: none;
+}
+
+#sidebar{
+    display: none;
 }
 
 .Flex-header-buttons{
@@ -170,6 +178,7 @@ body {
     .validation-summary-errors ul {
         padding-left: 20px;
         margin: 0px 0px;
+        list-style-type: none;
     }
 
 
@@ -207,6 +216,35 @@ body {
 
 }
 
+.Flex-box-list-item {
+    background-color: #0D0D0D;
+    padding: 5px 5px;
+    color: white;
+    font-family: Calibri;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+    .Flex-box-list-item a {
+        text-decoration: none;
+        font-family: Calibri;
+        color: white;
+        cursor: pointer;
+    }
+
+        .Flex-box-list-item a:hover {
+            opacity: 0.4;
+        }
+
+    .Flex-box-list-item img{
+        height: 25px;
+        width: 25px;
+        margin-right: 10px;
+    }
+
 
 /*Część odpowiedzialna za responsywność*/
 @media screen and (max-width: 1090px) {
@@ -219,7 +257,20 @@ body {
     }
 
     .Flex-header-logo {
-        height: 35%;
+        width: 100vw;
+        justify-content: space-around;
+    }
+        
+    .Flex-header-buttons{
+        display: none;
+    }
+
+    .Flex-header-socials {
+        display: none;
+    }
+
+    #menu-button {
+        display: block;
     }
 
 }

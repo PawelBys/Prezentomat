@@ -11,12 +11,15 @@
     <div class="Flex-container">
         <header>
             <div class="Flex-header-logo">
-                <a href="@Url.Action("Index", "Home")">
-                    <img src="@Url.Content("~/Images/logo-prezentomat.png")" />
-                </a>
-            </div>
-            <div class="Flex-header-buttons">
                 
+                    <a href="@Url.Action("Index", "Home")">
+                        <img src="@Url.Content("~/Images/logo-prezentomat.png")" />
+                    </a>
+                        <a id="menu-button" onclick="openAndCloseNav()">☰</a>
+            </div>
+
+            <div class="Flex-header-buttons">
+
             </div>
             <div class="Flex-header-socials">
                 <img src="@Url.Content("~/Images/login.png")" />
@@ -25,7 +28,22 @@
                 @Html.ActionLink("Zarejestruj", "Regist", "User")
             </div>
         </header>
-            @RenderBody()
+        <nav id="sidebar">
+            <div class="Clear-flex-box-row">
+
+                <div class="Flex-box-list-item">
+                    <img src="@Url.Content("~/Images/login.png")" />
+                    @Html.ActionLink("Zaloguj", "Login", "User")
+                </div>
+
+                <div class="Flex-box-list-item">
+                    <img src="@Url.Content("~/Images/add_user.png")" />
+                    @Html.ActionLink("Zarejestruj", "Regist", "User")
+                </div>
+
+            </div>
+        </nav>
+        @RenderBody()
         <footer>
             <span>&copy; @DateTime.Now.Year - WAT WCY18IJ1S1</span>
         </footer>
@@ -34,5 +52,20 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <script>
+        var flag = 0;
+        function openAndCloseNav() {
+            if (flag == 0) {
+                document.getElementById("sidebar").style.display = "block";
+                flag = 1;
+            }
+            else{
+                document.getElementById("sidebar").style.display = "none";
+                flag = 0;
+            }
+        }
+    </script>
+
 </body>
 </html>
