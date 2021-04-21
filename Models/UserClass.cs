@@ -11,7 +11,7 @@ using System.Web;
 namespace Prezentomat.Models
 {
     [Table("user", Schema = "public")]
-    public class UserClass
+    public class UserClass 
     {
         [Key]
         public int user_id { get; set; }
@@ -37,5 +37,7 @@ namespace Prezentomat.Models
 
         [Required]
         public string repeat_password { get; set; }
+
+        
     }
 }

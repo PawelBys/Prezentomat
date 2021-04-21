@@ -8,6 +8,7 @@ using System.Web.Routing;
 using System.Web;
 using Prezentomat.Classes;
 using System.Windows;
+using System.Data.Entity.Validation;
 
 namespace Prezentomat.Controllers
 {
@@ -61,17 +62,19 @@ namespace Prezentomat.Controllers
             return View();
         }
 
-        
+       
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Login([Bind(Include = "email, password")] UserClass userClass)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValidField("email") && ModelState.IsValidField("password")) 
             {
                 var email = "";
                 var password = "";
                 var user_id = 0;
-                var userEmail = Hash.ComputeSha512Hash(userClass.email);
+                var userEmail = userClass.email;
 
                 try
                 {
@@ -81,7 +84,7 @@ namespace Prezentomat.Controllers
 
                 }
                 catch(Exception e){;}
-                if (email.Equals(Hash.ComputeSha512Hash(userClass.email))&&password.Equals(Hash.ComputeSha512Hash(userClass.password)))
+                if (email.Equals(userClass.email)&&password.Equals(Hash.ComputeSha512Hash(userClass.password)))
                 {
 
                     //zalogowany
@@ -91,11 +94,17 @@ namespace Prezentomat.Controllers
                 else
                 {
                     //zle dane
-                    return RedirectToAction("Regist");
+                    ModelState.AddModelError("email", "Email i hasło nie zgadzają się");
+                    return View(userClass);
                 }
             }
+            else
+            {
+                ModelState.AddModelError("email", "Niepoprawne dane");
+                return View(userClass);
+            }
 
-            return View(userClass);
+            return View();
         }
         
         public ActionResult Regist()
@@ -109,30 +118,51 @@ namespace Prezentomat.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (userClass.repeat_password.Equals(userClass.password)){
-                    //save date to db
-                    _context.UserDetails.Add(new UserClass()
+                if( !ifUserExist(userClass.email)  ) //jesli taki użytkownik nie istnieje
+                {
+
+                
+                    if (userClass.repeat_password.Equals(userClass.password)){
+                                        //save date to db
+                            _context.UserDetails.Add(new UserClass()
+                            {
+                                user_id = userClass.user_id,
+                                email = userClass.email,
+                                password = Hash.ComputeSha512Hash(userClass.password),
+                                repeat_password = Hash.ComputeSha512Hash(userClass.repeat_password),
+                                firstname = userClass.firstname,
+                                lastname = userClass.lastname,
+                                birthdate = userClass.birthdate.ToString()
+                            });
+                            _context.SaveChanges();
+                            return RedirectToAction("Login");
+                    }
+                    else
                     {
-                        user_id = userClass.user_id,
-                        email = Hash.ComputeSha512Hash(userClass.email),
-                        password = Hash.ComputeSha512Hash(userClass.password),
-                        firstname = userClass.firstname,
-                        lastname = userClass.lastname,
-                        birthdate = userClass.birthdate.ToString()
-                    });
-                    _context.SaveChanges();
-                    return RedirectToAction("Login");
+                        //hasła się nie zgadzają
+                        ModelState.AddModelError("repeat_password", "Hasła się nie zgadzają.");
+
+                    }
                 }
                 else
                 {
-                    //hasła się nie zgadzają
-                    MessageBox.Show("Hasła się nie zgadzają");
-
+                    ModelState.AddModelError("email", "Taki użytkownik już istnieje.");
                 }
-                
+
+
             }
 
             return View(userClass);
+        }
+
+        private bool ifUserExist (string userEmail)
+        {
+            if (_context.UserDetails.Any(p => p.email == userEmail))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         public ActionResult Logout()
