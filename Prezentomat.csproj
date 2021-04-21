@@ -183,6 +183,7 @@
     </Compile>
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\GatheringClass.cs" />
+    <Compile Include="Models\LoginClass.cs" />
     <Compile Include="Models\UserClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

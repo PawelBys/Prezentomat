@@ -64,33 +64,38 @@ namespace Prezentomat.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login([Bind(Include = "email,password")] UserClass userClass)
+        public ActionResult Login([Bind(Include = "email, password")] UserClass userClass)
         {
-            var email = "";
-            var password = "";
-            var user_id = 0;
-            var userEmail = Hash.ComputeSha512Hash(userClass.email);
-
-            try
+            if (ModelState.IsValid)
             {
-                email = _context.UserDetails.Where(p => p.email == userEmail).Single().email;
-                password = _context.UserDetails.Where(p => p.email == userEmail).Single().password;
-                user_id = _context.UserDetails.Where(p => p.email == userEmail).Single().user_id;
+                var email = "";
+                var password = "";
+                var user_id = 0;
+                var userEmail = Hash.ComputeSha512Hash(userClass.email);
 
-            }
-            catch(Exception e){;}
-            if (email.Equals(Hash.ComputeSha512Hash(userClass.email))&&password.Equals(Hash.ComputeSha512Hash(userClass.password)))
-            {
+                try
+                {
+                    email = _context.UserDetails.Where(p => p.email == userEmail).Single().email;
+                    password = _context.UserDetails.Where(p => p.email == userEmail).Single().password;
+                    user_id = _context.UserDetails.Where(p => p.email == userEmail).Single().user_id;
 
-                //zalogowany
-                Session["UserID"] = user_id;
-                return RedirectToAction("Index"/*, new { id = user_id }*/);
+                }
+                catch(Exception e){;}
+                if (email.Equals(Hash.ComputeSha512Hash(userClass.email))&&password.Equals(Hash.ComputeSha512Hash(userClass.password)))
+                {
+
+                    //zalogowany
+                    Session["UserID"] = user_id;
+                    return RedirectToAction("Index"/*, new { id = user_id }*/);
+                }
+                else
+                {
+                    //zle dane
+                    return RedirectToAction("Regist");
+                }
             }
-            else
-            {
-                //zle dane
-                return RedirectToAction("Regist");
-            }
+
+            return View(userClass);
         }
         
         public ActionResult Regist()
