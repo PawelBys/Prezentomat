@@ -100,21 +100,31 @@ namespace Prezentomat.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Regist([Bind(Include = "userID,email,password,firstname,lastname,birthdate")] UserClass userClass)
+        public ActionResult Regist([Bind(Include = "userID,email,password, repeat_password, firstname,lastname,birthdate")] UserClass userClass)
         {
             if (ModelState.IsValid)
             {
-                //save date to db
-                _context.UserDetails.Add(new UserClass() {
-                    user_id = userClass.user_id,
-                    email = Hash.ComputeSha512Hash(userClass.email),
-                    password = Hash.ComputeSha512Hash(userClass.password),
-                    firstname = userClass.firstname,
-                    lastname = userClass.lastname,
-                    birthdate = userClass.birthdate
-                });
-                _context.SaveChanges();
-                return RedirectToAction("Login");
+                if (userClass.repeat_password.Equals(userClass.password)){
+                    //save date to db
+                    _context.UserDetails.Add(new UserClass()
+                    {
+                        user_id = userClass.user_id,
+                        email = Hash.ComputeSha512Hash(userClass.email),
+                        password = Hash.ComputeSha512Hash(userClass.password),
+                        firstname = userClass.firstname,
+                        lastname = userClass.lastname,
+                        birthdate = userClass.birthdate
+                    });
+                    _context.SaveChanges();
+                    return RedirectToAction("Login");
+                }
+                else
+                {
+                    //hasła się nie zgadzają
+                    MessageBox.Show("Hasła się nie zgadzają");
+
+                }
+                
             }
 
             return View(userClass);

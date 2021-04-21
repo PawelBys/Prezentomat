@@ -18,6 +18,7 @@ namespace Prezentomat.Models
         public string email { get; set; }
         [Required]
         public string password { get; set; }
+        public string repeat_password { get; set; }
         public string firstname { get; set; }
         public string lastname { get; set; }
         public string birthdate { get; set; }
