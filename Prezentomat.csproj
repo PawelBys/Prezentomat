@@ -177,6 +177,7 @@
     <Compile Include="Controllers\GatheringController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="CustomAuthorize.cs" />
     <Compile Include="DataContext\ApplicationDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -185,6 +186,7 @@
     <Compile Include="Models\GatheringClass.cs" />
     <Compile Include="Models\LoginClass.cs" />
     <Compile Include="Models\UserClass.cs" />
+    <Compile Include="Models\UserOfGatheringClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -239,18 +241,16 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\Gathering\Gathering.cshtml" />
-    <Content Include="Views\Gathering\Create.cshtml" />
-    <Content Include="Views\Gathering\Delete.cshtml" />
-    <Content Include="Views\Gathering\Details.cshtml" />
-    <Content Include="Views\Gathering\Edit.cshtml" />
-    <Content Include="Views\Gathering\Index.cshtml" />
-    <Content Include="Views\Gathering\GatheringView.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Regist.cshtml" />
     <Content Include="Views\Shared\_LayoutUser.cshtml" />
     <Content Include="Views\Shared\_HomeLayout.cshtml" />
     <Content Include="Views\User\collection.cshtml" />
+    <Content Include="Views\Gathering\Create.cshtml" />
+    <Content Include="Views\Gathering\Delete.cshtml" />
+    <Content Include="Views\Gathering\Details.cshtml" />
+    <Content Include="Views\Gathering\Edit.cshtml" />
+    <Content Include="Views\Gathering\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

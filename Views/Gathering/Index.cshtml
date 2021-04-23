@@ -1,54 +1,67 @@
 ﻿@model IEnumerable<Prezentomat.Models.GatheringClass>
 
 @{
-    ViewBag.Title = "Strona główna";
-    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 
-<h2>Aktywne zbiórki</h2>
-<p>
-   <b>
+<!DOCTYPE html>
 
-        Strona testowa, nie będzie tak finalnie wyglądała 
-
-   </b>
-    @{ 
-        var maxZbiorka = ViewBag.Zbiorka;
+<html>
+<main>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.current_amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.target_amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.finish_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.gathering_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.creator_id)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.current_amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.target_amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.finish_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gathering_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.creator_id)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.gathering_id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.gathering_id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.gathering_id })
+            </td>
+        </tr>
     }
-
-    Największa zbiórka:
-    @maxZbiorka
-
-</p>
-
-<p>
-    @Html.ActionLink("Dodaj nową zbiórkę", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.target_amount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.finish_date)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.target_amount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.finish_date)
-        </td>
-        <td>
-            @Html.ActionLink("Edytuj", "Edit", new { id=item.current_amount }) |
-            @Html.ActionLink("Szczegóły", "Details", new { id=item.current_amount }) |
-            @Html.ActionLink("Usuń", "Delete", new { id=item.current_amount })
-        </td>
-    </tr>
-}
-
-</table>
+    
+    </table>
+</body>
+</main>
+</html>

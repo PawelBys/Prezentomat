@@ -31,7 +31,8 @@
                     @Html.CheckBox("isActive", false)
                     Zapamiętaj mnie!
                 </div>
-                <input type="submit" value="Zaloguj" />
+                <br>
+                <input type="submit" value="Zaloguj" style="border: 1px solid; border-radius: 15px" />
 
                 @*@Html.ValidationSummary(false, "")*@
                 @Html.ValidationMessageFor(m => m.email, "", new { @class = "validation-summary-errors" })

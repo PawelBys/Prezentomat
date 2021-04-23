@@ -6,42 +6,23 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
 using Prezentomat.DataContext;
 using Prezentomat.Models;
 
 namespace Prezentomat.Controllers
 {
+    //[CustomAuthorize]
     public class GatheringController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        int id;
-        string user_name;
-
-        protected override IAsyncResult BeginExecute(RequestContext requestContext, AsyncCallback callback, object state)
-        {
-            var Session = System.Web.HttpContext.Current.Session;
-            if (Session != null)
-            {
-                id = (int)Session["UserID"];
-                user_name = db.UserDetails.Where(p => p.user_id == id).Single().firstname;
-                ViewBag.user_name = user_name;
-            }
-
-
-            return base.BeginExecute(requestContext, callback, state);
-        }
-
         // GET: Gathering
         public ActionResult Index()
         {
+            int userId = Convert.ToInt32(Session["id"]);
+            var bookings = db.GatheringDetails.Where(b => b.creator_id == 1).ToList();
 
-            var maxZbiorka = db.GatheringDetails.Where(p => p.target_amount == 50).Single();
-
-            ViewBag.Zbiorka = maxZbiorka; /// jak to wyswietlic we view?
-
-            return View(db.GatheringDetails.ToList());
+            return View(bookings);
         }
 
         // GET: Gathering/Details/5
@@ -70,12 +51,12 @@ namespace Prezentomat.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "current_amount,target_amount,finish_date")] GatheringClass gatheringClass)
+        public ActionResult Create([Bind(Include = "gathering_id,current_amount,target_amount,finish_date,gathering_name,creator_id,user_of_gathering_id")] GatheringClass gatheringClass, UserOfGatheringClass userOfGatheringClass)
         {
             if (ModelState.IsValid)
             {
-                
                 db.GatheringDetails.Add(gatheringClass);
+                db.UserOfGatheringDetails.Add(userOfGatheringClass);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -103,15 +84,13 @@ namespace Prezentomat.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "current_amount,target_amount,finish_date")] GatheringClass gatheringClass)
+        public ActionResult Edit([Bind(Include = "gathering_id,current_amount,target_amount,finish_date,gathering_name,creator_id")] GatheringClass gatheringClass)
         {
             if (ModelState.IsValid)
             {
-                System.Console.WriteLine("zapisa do bazy");
                 db.Entry(gatheringClass).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
-                
             }
             return View(gatheringClass);
         }
