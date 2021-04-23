@@ -1,34 +1,68 @@
 ﻿@model Prezentomat.Models.GatheringClass
 
 @{
-    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
 }
 
-<h2>Details</h2>
+<!DOCTYPE html>
 
-<div>
-    <h4>GatheringClass</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.target_amount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.target_amount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.finish_date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.finish_date)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.current_amount }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<main>
+<body>
+    <div>
+        <h4>GatheringClass</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.current_amount)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.current_amount)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.target_amount)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.target_amount)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.finish_date)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.finish_date)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.gathering_name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.gathering_name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.creator_id)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.creator_id)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.gathering_id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+    </main>
+</html>

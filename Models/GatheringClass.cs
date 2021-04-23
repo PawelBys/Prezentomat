@@ -13,8 +13,15 @@ namespace Prezentomat.Models
     {
         [Key] // to wskazuje na to, która zmienna jest kluczem głównym
         public int gathering_id { get; set; }
+        [Required]
         public int current_amount { get; set; }
+        [Required]
         public int target_amount { get; set; }
+        [Required]
         public DateTime finish_date { get; set; }
+        [Required]
+        public string gathering_name { get; set; }
+        [Required]
+        public int creator_id { get; set; }
     }
 }
