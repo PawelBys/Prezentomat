@@ -250,7 +250,7 @@
     <Content Include="Views\User\Regist.cshtml" />
     <Content Include="Views\Shared\_LayoutUser.cshtml" />
     <Content Include="Views\Shared\_HomeLayout.cshtml" />
-    <Content Include="Views\User\collection.cshtml" />
+    <Content Include="Views\User\Collection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
