@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 using Prezentomat.DataContext;
 using Prezentomat.Models;
 
@@ -15,6 +16,22 @@ namespace Prezentomat.Controllers
     public class GatheringController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        int id;
+        string user_name;
+
+        protected override IAsyncResult BeginExecute(RequestContext requestContext, AsyncCallback callback, object state)
+        {
+            var Session = System.Web.HttpContext.Current.Session;
+            if (Session != null)
+            {
+                id = (int)Session["UserID"];
+                user_name = db.UserDetails.Where(p => p.user_id == id).Single().firstname;
+                ViewBag.user_name = user_name;
+            }
+
+
+            return base.BeginExecute(requestContext, callback, state);
+        }
 
         // GET: Gathering
         public ActionResult Index()
@@ -33,12 +50,35 @@ namespace Prezentomat.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             GatheringClass gatheringClass = db.GatheringDetails.Find(id);
+            var userOfGatheringClass = db.UserOfGatheringDetails.Where(b => b.gathering_id == gatheringClass.gathering_id).ToList();
+            int size = userOfGatheringClass.Count();
+            string[] wplaty=new string[size];
+            for(int i=0; i < size; i++)
+            {
+                int user_id = userOfGatheringClass[i].user_id;
+                int user_of_gathering_id = userOfGatheringClass[i].user_of_gathering_id;
+                var ile = 0;
+                try
+                {
+                    //blad przy pobieraniu danych z tabeli paymenthistory??? do poprawy!
+                    ile = db.PaymentHistoryDetails.Where(b => b.user_of_gathering_id == user_of_gathering_id).Single().amount_of_payment;
+                }catch(Exception e){; }
+                var imie = db.UserDetails.Where(b => b.user_id == user_id).Single().firstname;
+                var nazwisko = db.UserDetails.Where(b => b.user_id == user_id).Single().lastname;
+                wplaty[i]=imie+" "+nazwisko+" - wplata: "+ile+" zł";
+            }
+            ViewBag.wplaty = wplaty;
+            ViewBag.size = size;
+           
+
             if (gatheringClass == null)
             {
                 return HttpNotFound();
             }
             return View(gatheringClass);
         }
+
+
 
         // GET: Gathering/Create
         public ActionResult Create()

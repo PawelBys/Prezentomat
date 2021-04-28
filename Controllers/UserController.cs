@@ -32,6 +32,7 @@ namespace Prezentomat.Controllers
 
             return base.BeginExecute(requestContext, callback, state);
         }
+
         public UserController()
         {
             _context = new ApplicationDbContext();

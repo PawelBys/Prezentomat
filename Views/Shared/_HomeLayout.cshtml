@@ -11,16 +11,16 @@
     <div class="Flex-container">
         <header>
             <div class="Flex-header-logo">
-                
-                    <a href="@Url.Action("Index", "Home")">
-                        <img src="@Url.Content("~/Images/logo-prezentomat.png")" />
-                    </a>
-                        <a id="menu-button" onclick="openAndCloseNav()">☰</a>
+
+                <a href="@Url.Action("Index", "Home")">
+                    <img src="@Url.Content("~/Images/logo-prezentomat.png")" />
+                </a>
+                <a id="menu-button" onclick="openAndCloseNav()">☰</a>
             </div>
 
-            <div class="Flex-header-buttons">
-                @Html.ActionLink("Moje zbiórki", "Index", "Gathering")
-            </div>
+            <!--<div class="Flex-header-buttons">
+             @Html.ActionLink("Moje zbiórki", "Index", "Gathering")
+            </div>-->
             <div class="Flex-header-socials">
                 <img src="@Url.Content("~/Images/login.png")" />
                 @Html.ActionLink("Zaloguj", "Login", "User")
