@@ -1,7 +1,9 @@
 ﻿@model Prezentomat.Models.GatheringClass
 
 @{
-    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    var wplaty = ViewBag.wplaty;
+    var size = ViewBag.size;
 }
 
 <!DOCTYPE html>
@@ -10,59 +12,75 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Details</title>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/Features-Clean.css" />
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" />
 </head>
 <main>
-<body>
-    <div>
-        <h4>GatheringClass</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.current_amount)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.current_amount)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.target_amount)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.target_amount)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.finish_date)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.finish_date)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.gathering_name)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.gathering_name)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.creator_id)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.creator_id)
-            </dd>
-    
-        </dl>
-    </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.gathering_id }) |
-        @Html.ActionLink("Back to List", "Index")
-    </p>
-</body>
+    <body>
+        <section class="features-clean">
+            <div class="container">
+                <div class="intro">
+                    <h2 class="text-center">@Html.DisplayFor(model => model.gathering_name)</h2>
+                    <p class="text-center">opis zbiórki</p>
+                </div>
+                <div class="row features">
+
+                    <div class="col-sm-6 col-lg-4 item">
+                        <i class="fa fa-gift icon"></i>
+                        <h3 class="name">Cel zbiórki</h3>
+                        <p class="description">zdjecie prezentu</p>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4 item">
+                        <i class="fa fa-euro icon"></i>
+                        <h3 class="name">Oczekiwana kwota</h3>
+                        <p class="description">@Html.DisplayFor(model => model.target_amount)</p>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4 item">
+                        <i class="fa fa-calendar-times-o icon"></i>
+                        <h3 class="name">Data końca zbiórki</h3>
+                        <p class="description">@Html.DisplayFor(model => model.finish_date)</p>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4 item">
+                        <i class="fa fa-pie-chart icon"></i>
+                        <h3 class="name">Zebrana kwota</h3>
+                        <p class="description">@Html.DisplayFor(model => model.current_amount)</p>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4 item">
+                        <i class="fa fa-line-chart icon"></i>
+                        <h3 class="name">Dokonaj wpłaty na zbiórke</h3>
+                        <p class="description"></p>
+                        <button class="btn btn-primary" type="button" style="width:100%;border:1px solid;border-radius:15px;">Wpłać</button>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4 item">
+                        <i class="fa fa-user-plus icon"></i>
+                        <h3 class="name">Dodaj użytkownika</h3>
+                        <p class="description"></p>
+                        <button class="btn btn-primary" type="button" style="width:100%;border:1px solid;border-radius:15px;">Dodaj</button>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4 item">
+                        <i class="fa fa-list-ul icon"></i>
+                        <h3 class="name">Wpłaty</h3>
+                        <ul>
+                            @for(int i = 0; i < size; i++)
+                            {
+                                <li>@wplaty[i]</li>
+                            }
+                            
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <script src="~/Scripts/jquery-3.4.1.min.js"
+        <script src="~/Scripts/bootstrap.min.js"
+    </body>
     </main>
 </html>

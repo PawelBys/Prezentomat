@@ -22,5 +22,7 @@ namespace Prezentomat.DataContext
 
         public virtual DbSet<UserOfGatheringClass> UserOfGatheringDetails { get; set; }
 
+        public virtual DbSet<PaymentHistoryClass> PaymentHistoryDetails { get; set; }
+
     }
 }
