@@ -60,7 +60,6 @@ namespace Prezentomat.Controllers
                 var ile = 0;
                 try
                 {
-                    //blad przy pobieraniu danych z tabeli paymenthistory??? do poprawy!
                     ile = db.PaymentHistoryDetails.Where(b => b.user_of_gathering_id == user_of_gathering_id).Single().amount_of_payment;
                 }catch(Exception e){; }
                 var imie = db.UserDetails.Where(b => b.user_id == user_id).Single().firstname;
