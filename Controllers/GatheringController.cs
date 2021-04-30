@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -36,10 +37,20 @@ namespace Prezentomat.Controllers
         // GET: Gathering
         public ActionResult Index()
         {
-            int userId = Convert.ToInt32(Session["id"]);
-            var bookings = db.GatheringDetails.Where(b => b.creator_id == 1).ToList();
+            //int userId = Convert.ToInt32(Session["id"]);
+            //var bookings = db.GatheringDetails.Where(b => b.creator_id == 1).ToList();
 
-            return View(bookings);
+
+            //wyswietlenie zbiurek tylko zalogowanego uzytkownika
+            var userOfGatherings = db.UserOfGatheringDetails.Where(b=>b.user_id==id).ToList();
+            List<GatheringClass> gatherings=new List<GatheringClass>();
+            for(int i = 0; i < userOfGatherings.Count(); i++)
+            {
+                int gatheringId = userOfGatherings[i].gathering_id;
+                gatherings.Add(db.GatheringDetails.Where(b => b.gathering_id == gatheringId).Single());
+            }
+
+            return View(gatherings);
         }
 
         // GET: Gathering/Details/5
@@ -57,10 +68,16 @@ namespace Prezentomat.Controllers
             {
                 int user_id = userOfGatheringClass[i].user_id;
                 int user_of_gathering_id = userOfGatheringClass[i].user_of_gathering_id;
-                var ile = 0;
+                int ile = 0;
+                List<PaymentHistoryClass> payments=new List<PaymentHistoryClass>();
                 try
                 {
-                    ile = db.PaymentHistoryDetails.Where(b => b.user_of_gathering_id == user_of_gathering_id).Single().amount_of_payment;
+                    payments = db.PaymentHistoryDetails.Where(b => b.user_of_gathering_id == user_of_gathering_id).ToList();
+                    for(int j = 0; j < payments.Count(); j++)
+                    {
+                        ile = ile + payments[j].amount_of_payment;
+                    }
+
                 }catch(Exception e){; }
                 var imie = db.UserDetails.Where(b => b.user_id == user_id).Single().firstname;
                 var nazwisko = db.UserDetails.Where(b => b.user_id == user_id).Single().lastname;
