@@ -9,6 +9,7 @@ using System.Web;
 using Prezentomat.Classes;
 using System.Windows;
 using System.Data.Entity.Validation;
+using System.Collections.Generic;
 
 namespace Prezentomat.Controllers
 {
@@ -47,6 +48,17 @@ namespace Prezentomat.Controllers
                 id = (int)Session["UserID"];
                 user_name = _context.UserDetails.Where(p => p.user_id == id).Single().firstname;
                 ViewBag.user_name = user_name;
+
+                var userOfGatherings = _context.UserOfGatheringDetails.Where(b => b.user_id == id).ToList();
+                List<GatheringClass> gatherings = new List<GatheringClass>();
+                for (int i = 0; i < userOfGatherings.Count(); i++)
+                {
+                    int gatheringId = userOfGatherings[i].gathering_id;
+                    gatherings.Add(_context.GatheringDetails.Where(b => b.gathering_id == gatheringId).Single());
+                }
+
+                ViewBag.gatherings = gatherings;
+                ViewBag.size = gatherings.Count();
 
                 return View(_context.UserDetails.Where(p => p.user_id == id).Single());
             }
