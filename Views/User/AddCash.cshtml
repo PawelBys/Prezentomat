@@ -1,0 +1,42 @@
+﻿@using Prezentomat.Models
+@model Prezentomat.Models.UserClass
+
+
+@{
+    ViewBag.Title = "Doładowanie portfela";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<main>
+
+    <div class="Flex-box-col">
+
+        <div class="Flex-box-row">
+            Mój portfel
+        </div>
+
+        <hr style="width:200px;" />
+        <div class="Flex-box-row">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <span>Kwota doładowania: </span> @Html.TextBoxFor(m => m.wallet, new { @type = "number", @class = "span4", @min = "0", @Value = "0" })<br /><br />
+                <span>Podaj kod blik: </span> <input type="text" name="blik" title="ciąg składający się z 6 cyfr" required="required" pattern="^[0-9]{6}$" />
+                <input type="submit" value="Zatwierdź">
+            }
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+</main>

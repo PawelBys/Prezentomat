@@ -1,5 +1,6 @@
 ﻿@{
     var user_name = ViewBag.user_name;
+    var wallet = ViewBag.wallet;
 }
 
 <!DOCTYPE html>
@@ -23,6 +24,14 @@
             <div class="Flex-header-buttons">
                 @Html.ActionLink("Moje zbiórki", "Index", "Gathering")
             </div>
+
+            <div class="Flex-header-buttons">
+                <a href="@Url.Action("AddCash", "User")">
+                    <img src="@Url.Content("~/Images/imgportfel.png")" />
+                </a>
+                <span style="color: white"> @wallet</span>
+            </div>
+
             <div class="Flex-header-socials">
                 Witaj @user_name!
                 <img src="@Url.Content("~/Images/door.png")" />
