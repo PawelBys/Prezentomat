@@ -41,6 +41,8 @@ namespace Prezentomat.Controllers
 
         // GET: User
         
+
+        //chuj kurwa 
         public ActionResult Index()
         {
             if (Session["UserID"] != null)
