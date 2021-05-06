@@ -19,6 +19,7 @@ namespace Prezentomat.Controllers
         private ApplicationDbContext _context = new ApplicationDbContext();
         int uid;
         string user_name;
+        int wallet;
 
         protected override IAsyncResult BeginExecute(RequestContext requestContext, AsyncCallback callback, object state)
         {
@@ -28,6 +29,8 @@ namespace Prezentomat.Controllers
                 uid = (int)Session["UserID"];
                 user_name = _context.UserDetails.Where(p => p.user_id == uid).Single().firstname;
                 ViewBag.user_name = user_name;
+                wallet = _context.UserDetails.Where(p => p.user_id == uid).Single().wallet;
+                ViewBag.wallet = wallet;
             }
 
 
