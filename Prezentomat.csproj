@@ -207,11 +207,8 @@
     <Content Include="Images\admin.png" />
     <Content Include="Images\at.png" />
     <Content Include="Images\birthday.png" />
-    <Content Include="Images\computer.jpg" />
     <Content Include="Images\door.png" />
     <Content Include="Images\facebook.png" />
-    <Content Include="Images\football.jpg" />
-    <Content Include="Images\group.jpg" />
     <Content Include="Images\instagram.png" />
     <Content Include="Images\login.png" />
     <Content Include="Images\logo-prezentomat.png" />
