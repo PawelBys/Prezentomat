@@ -19,6 +19,7 @@ namespace Prezentomat.Controllers
         private ApplicationDbContext _context = new ApplicationDbContext();
         int uid;
         string user_name;
+        int wallet;
 
         protected override IAsyncResult BeginExecute(RequestContext requestContext, AsyncCallback callback, object state)
         {
@@ -27,7 +28,9 @@ namespace Prezentomat.Controllers
             {
                 uid = (int)Session["UserID"];
                 user_name = _context.UserDetails.Where(p => p.user_id == uid).Single().firstname;
+                wallet = _context.UserDetails.Where(p => p.user_id == uid).Single().wallet;
                 ViewBag.user_name = user_name;
+                ViewBag.wallet = wallet;
             }
 
 
@@ -56,10 +59,14 @@ namespace Prezentomat.Controllers
         // GET: Gathering/Details/5
         public ActionResult Details(int? id)
         {
-            // IN PROGRESSW
-            //var ifUserIsInUserOfGatheringClass = _context.UserOfGatheringDetails.Any(p => p.user_id == uid , p => p.gathering_id == id);
-            if (id == null /*|| !ifUserIsInUserOfGatheringClass*/) // jesli user moze oglada zbiorke (jesli jest w tabeli user of gathering)
+         
+            var userGatherings = _context.UserOfGatheringDetails.Where(p => p.user_id == uid).Select(a => a.gathering_id).ToList();
+            int notNullableGatheringId = id.GetValueOrDefault();
+            var ifUserHasThisGathering = _context.UserOfGatheringDetails.Any(x => userGatherings.Contains(notNullableGatheringId)); // musi być tak, bo id może być nullem
+            ViewBag.gathering_id = notNullableGatheringId;
+            if (id == null || !ifUserHasThisGathering) // jesli user moze oglada zbiorke (jesli jest w tabeli user of gathering)
             {
+                // tutaj ewentualnie coś w stylu " nie masz uprawnień do oglądania tej witryny"
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             

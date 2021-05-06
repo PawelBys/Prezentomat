@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
     var wplaty = ViewBag.wplaty;
     var size = ViewBag.size;
+    var gathering_id = ViewBag.gathering_id;
 }
 
 <!DOCTYPE html>
@@ -65,14 +66,26 @@
                     </div>
 
                     <div class="col-sm-6 col-lg-4 item">
+                        <i class="fa fa-user-plus icon"></i>
+                        <h3 class="name">Edytuj szczegóły</h3>
+                        <p class="description"></p>
+                        <button class="btn btn-primary" type="button" style="width:100%;border:1px solid;border-radius:15px;">
+
+                            @Html.ActionLink("Edytuj", "Edit", new { id = gathering_id }, new { @class = "btn btn-sm btn-outline-secondary" })
+
+                        </button>
+                    </div>
+
+
+                    <div class="col-sm-6 col-lg-4 item">
                         <i class="fa fa-list-ul icon"></i>
                         <h3 class="name">Wpłaty</h3>
                         <ul>
-                            @for(int i = 0; i < size; i++)
+                            @for (int i = 0; i < size; i++)
                             {
                                 <li>@wplaty[i]</li>
                             }
-                            
+
                         </ul>
                     </div>
 
