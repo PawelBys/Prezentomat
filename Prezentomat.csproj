@@ -182,6 +182,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AddGatheringModel.cs" />
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\GatheringClass.cs" />
     <Compile Include="Models\LoginClass.cs" />
@@ -267,7 +268,7 @@
     <Content Include="Views\Shared\_LayoutUser.cshtml" />
     <Content Include="Views\Shared\_HomeLayout.cshtml" />
     <Content Include="Views\User\collection.cshtml" />
-    <Content Include="Views\Gathering\Create.cshtml" />
+    <Content Include="Views\Gathering\Create_old.cshtml" />
     <Content Include="Views\Gathering\Delete.cshtml" />
     <Content Include="Views\Gathering\Details.cshtml" />
     <Content Include="Views\Gathering\Edit.cshtml" />
@@ -287,6 +288,7 @@
     <Content Include="scss\_stacked.scss" />
     <Content Include="scss\_variables.scss" />
     <Content Include="Views\User\AddCash.cshtml" />
+    <Content Include="Views\Gathering\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
