@@ -1,54 +1,117 @@
 ﻿@model IEnumerable<Prezentomat.Models.GatheringClass>
 
 @{
-    ViewBag.Title = "Strona główna";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 
-<h2>Aktywne zbiórki</h2>
-<p>
-   <b>
+<!DOCTYPE html>
 
-        Strona testowa, nie będzie tak finalnie wyglądała 
+<html>
+<main>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Index</title>
 
-   </b>
-    @{ 
-        var maxZbiorka = ViewBag.Zbiorka;
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
+
+
+    </head>    
+    <body>
+
+
+        <section class="py-5 text-center container">
+            <div class="row py-lg-5">
+                <div class="col-lg-6 col-md-8 mx-auto">
+                    <p>
+                        <div class="btn-group">
+                            <div class="btn btn-sm btn-outline-secondary" style="background-color:aliceblue;color:black;text-decoration:none;">@Html.ActionLink("Stwórz zbiórkę", "Create")</div>
+                        </div>
+                    </p>
+                </div>
+            </div>
+        </section>
+        <div class="album py-5">
+            <div class="container">
+
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+                    @foreach (var item in Model)
+                    {
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                <img src="https://magazynvip.pl/wp-content/uploads/2019/04/AdobeStock_205831001-750x423.jpg" class="img-thumbnail" alt="...">
+
+                                <div class="card-body">
+                                    <h4 class="card-text">@Html.DisplayFor(modelItem => item.gathering_name)</h4>
+                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            @Html.ActionLink("View", "Details", new { id = item.gathering_id }, new { @class = "btn btn-sm btn-outline-secondary" })
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.gathering_id }, new { @class = "btn btn-sm btn-outline-secondary" })
+
+                                        </div>
+                                        <small class="text-muted">@Html.DisplayFor(modelItem => item.finish_date)</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+
+        <!--
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.current_amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.target_amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.finish_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.gathering_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.creator_id)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.current_amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.target_amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.finish_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.gathering_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.creator_id)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.gathering_id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.gathering_id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.gathering_id })
+            </td>
+        </tr>
     }
 
-    Największa zbiórka:
-    @maxZbiorka
-
-</p>
-
-<p>
-    @Html.ActionLink("Dodaj nową zbiórkę", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.target_amount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.finish_date)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.target_amount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.finish_date)
-        </td>
-        <td>
-            @Html.ActionLink("Edytuj", "Edit", new { id=item.current_amount }) |
-            @Html.ActionLink("Szczegóły", "Details", new { id=item.current_amount }) |
-            @Html.ActionLink("Usuń", "Delete", new { id=item.current_amount })
-        </td>
-    </tr>
-}
-
-</table>
+    </table>
+        -->
+    </body>
+</main>
+</html>

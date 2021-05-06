@@ -1,34 +1,86 @@
 ﻿@model Prezentomat.Models.GatheringClass
 
 @{
-    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    var wplaty = ViewBag.wplaty;
+    var size = ViewBag.size;
 }
 
-<h2>Details</h2>
+<!DOCTYPE html>
 
-<div>
-    <h4>GatheringClass</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.target_amount)
-        </dt>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/Features-Clean.css" />
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" />
+</head>
+<main>
+    <body>
+        <section class="features-clean">
+            <div class="container">
+                <div class="intro">
+                    <h2 class="text-center">@Html.DisplayFor(model => model.gathering_name)</h2>
+                    <p class="text-center">opis zbiórki</p>
+                </div>
+                <div class="row features">
 
-        <dd>
-            @Html.DisplayFor(model => model.target_amount)
-        </dd>
+                    <div class="col-sm-6 col-lg-4 item">
+                        <i class="fa fa-gift icon"></i>
+                        <h3 class="name">Cel zbiórki</h3>
+                        <p class="description">zdjecie prezentu</p>
+                    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.finish_date)
-        </dt>
+                    <div class="col-sm-6 col-lg-4 item">
+                        <i class="fa fa-euro icon"></i>
+                        <h3 class="name">Oczekiwana kwota</h3>
+                        <p class="description">@Html.DisplayFor(model => model.target_amount)</p>
+                    </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.finish_date)
-        </dd>
+                    <div class="col-sm-6 col-lg-4 item">
+                        <i class="fa fa-calendar-times-o icon"></i>
+                        <h3 class="name">Data końca zbiórki</h3>
+                        <p class="description">@Html.DisplayFor(model => model.finish_date)</p>
+                    </div>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.current_amount }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+                    <div class="col-sm-6 col-lg-4 item">
+                        <i class="fa fa-pie-chart icon"></i>
+                        <h3 class="name">Zebrana kwota</h3>
+                        <p class="description">@Html.DisplayFor(model => model.current_amount)</p>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4 item">
+                        <i class="fa fa-line-chart icon"></i>
+                        <h3 class="name">Dokonaj wpłaty na zbiórke</h3>
+                        <p class="description"></p>
+                        <button class="btn btn-primary" type="button" style="width:100%;border:1px solid;border-radius:15px;">Wpłać</button>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4 item">
+                        <i class="fa fa-user-plus icon"></i>
+                        <h3 class="name">Dodaj użytkownika</h3>
+                        <p class="description"></p>
+                        <button class="btn btn-primary" type="button" style="width:100%;border:1px solid;border-radius:15px;">Dodaj</button>
+                    </div>
+
+                    <div class="col-sm-6 col-lg-4 item">
+                        <i class="fa fa-list-ul icon"></i>
+                        <h3 class="name">Wpłaty</h3>
+                        <ul>
+                            @for(int i = 0; i < size; i++)
+                            {
+                                <li>@wplaty[i]</li>
+                            }
+                            
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <script src="~/Scripts/jquery-3.4.1.min.js"
+        <script src="~/Scripts/bootstrap.min.js"
+    </body>
+    </main>
+</html>

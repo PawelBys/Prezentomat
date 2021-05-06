@@ -177,14 +177,18 @@
     <Compile Include="Controllers\GatheringController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="CustomAuthorize.cs" />
     <Compile Include="DataContext\ApplicationDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AddGatheringModel.cs" />
     <Compile Include="Models\Gender.cs" />
     <Compile Include="Models\GatheringClass.cs" />
     <Compile Include="Models\LoginClass.cs" />
+    <Compile Include="Models\PaymentHistoryClass.cs" />
     <Compile Include="Models\UserClass.cs" />
+    <Compile Include="Models\UserOfGatheringClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -193,7 +197,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\FlexStyle.css" />
+    <Content Include="css\font-awesome.css" />
+    <Content Include="css\font-awesome.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -201,11 +208,8 @@
     <Content Include="Images\admin.png" />
     <Content Include="Images\at.png" />
     <Content Include="Images\birthday.png" />
-    <Content Include="Images\computer.jpg" />
     <Content Include="Images\door.png" />
     <Content Include="Images\facebook.png" />
-    <Content Include="Images\football.jpg" />
-    <Content Include="Images\group.jpg" />
     <Content Include="Images\instagram.png" />
     <Content Include="Images\login.png" />
     <Content Include="Images\logo-prezentomat.png" />
@@ -216,6 +220,25 @@
     <Content Include="Images\youtube.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="less\animated.less" />
+    <Content Include="less\bordered-pulled.less" />
+    <Content Include="less\core.less" />
+    <Content Include="less\fixed-width.less" />
+    <Content Include="less\font-awesome.less" />
+    <Content Include="less\icons.less" />
+    <Content Include="less\larger.less" />
+    <Content Include="less\list.less" />
+    <Content Include="less\mixins.less" />
+    <Content Include="less\path.less" />
+    <Content Include="less\rotated-flipped.less" />
+    <Content Include="less\screen-reader.less" />
+    <Content Include="less\stacked.less" />
+    <Content Include="less\variables.less" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -227,6 +250,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="css\Features-Clean.css" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -239,18 +263,32 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\Gathering\Gathering.cshtml" />
-    <Content Include="Views\Gathering\Create.cshtml" />
-    <Content Include="Views\Gathering\Delete.cshtml" />
-    <Content Include="Views\Gathering\Details.cshtml" />
-    <Content Include="Views\Gathering\Edit.cshtml" />
-    <Content Include="Views\Gathering\Index.cshtml" />
-    <Content Include="Views\Gathering\GatheringView.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\User\Regist.cshtml" />
     <Content Include="Views\Shared\_LayoutUser.cshtml" />
     <Content Include="Views\Shared\_HomeLayout.cshtml" />
     <Content Include="Views\User\collection.cshtml" />
+    <Content Include="Views\Gathering\Create_old.cshtml" />
+    <Content Include="Views\Gathering\Delete.cshtml" />
+    <Content Include="Views\Gathering\Details.cshtml" />
+    <Content Include="Views\Gathering\Edit.cshtml" />
+    <Content Include="Views\Gathering\Index.cshtml" />
+    <Content Include="scss\font-awesome.scss" />
+    <Content Include="scss\_animated.scss" />
+    <Content Include="scss\_bordered-pulled.scss" />
+    <Content Include="scss\_core.scss" />
+    <Content Include="scss\_fixed-width.scss" />
+    <Content Include="scss\_icons.scss" />
+    <Content Include="scss\_larger.scss" />
+    <Content Include="scss\_list.scss" />
+    <Content Include="scss\_mixins.scss" />
+    <Content Include="scss\_path.scss" />
+    <Content Include="scss\_rotated-flipped.scss" />
+    <Content Include="scss\_screen-reader.scss" />
+    <Content Include="scss\_stacked.scss" />
+    <Content Include="scss\_variables.scss" />
+    <Content Include="Views\User\AddCash.cshtml" />
+    <Content Include="Views\Gathering\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

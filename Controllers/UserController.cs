@@ -9,6 +9,7 @@ using System.Web;
 using Prezentomat.Classes;
 using System.Windows;
 using System.Data.Entity.Validation;
+using System.Collections.Generic;
 
 namespace Prezentomat.Controllers
 {
@@ -17,6 +18,7 @@ namespace Prezentomat.Controllers
         ApplicationDbContext _context;
         int id;
         string user_name;
+        int wallet;
 
 
         protected override IAsyncResult BeginExecute(RequestContext requestContext, AsyncCallback callback, object state)
@@ -26,12 +28,15 @@ namespace Prezentomat.Controllers
             {
                 id = (int)Session["UserID"];
                 user_name = _context.UserDetails.Where(p => p.user_id == id).Single().firstname;
+                wallet = _context.UserDetails.Where(p => p.user_id == id).Single().wallet;
                 ViewBag.user_name = user_name;
+                ViewBag.wallet = wallet;
             }
 
 
             return base.BeginExecute(requestContext, callback, state);
         }
+
         public UserController()
         {
             _context = new ApplicationDbContext();
@@ -39,6 +44,8 @@ namespace Prezentomat.Controllers
 
         // GET: User
         
+
+        //chuj kurwa 
         public ActionResult Index()
         {
             if (Session["UserID"] != null)
@@ -46,6 +53,19 @@ namespace Prezentomat.Controllers
                 id = (int)Session["UserID"];
                 user_name = _context.UserDetails.Where(p => p.user_id == id).Single().firstname;
                 ViewBag.user_name = user_name;
+                wallet = _context.UserDetails.Where(p => p.user_id == id).Single().wallet;
+                ViewBag.wallet = wallet;
+
+                var userOfGatherings = _context.UserOfGatheringDetails.Where(b => b.user_id == id).ToList();
+                List<GatheringClass> gatherings = new List<GatheringClass>();
+                for (int i = 0; i < userOfGatherings.Count(); i++)
+                {
+                    int gatheringId = userOfGatherings[i].gathering_id;
+                    gatherings.Add(_context.GatheringDetails.Where(b => b.gathering_id == gatheringId).Single());
+                }
+
+                ViewBag.gatherings = gatherings;
+                ViewBag.size = gatherings.Count();
 
                 return View(_context.UserDetails.Where(p => p.user_id == id).Single());
             }
@@ -171,6 +191,54 @@ namespace Prezentomat.Controllers
 
             return RedirectToAction("Login");
         }
+
+        public ActionResult AddCash()
+        {
+
+            id = (int)Session["UserID"];
+            user_name = _context.UserDetails.Where(p => p.user_id == id).Single().firstname;
+            ViewBag.user_name = user_name;
+            wallet = _context.UserDetails.Where(p => p.user_id == id).Single().wallet;
+            ViewBag.wallet = wallet;
+            return View(_context.UserDetails.Where(p => p.user_id == id).Single());
+
+            //return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddCash([Bind(Include = "wallet")] UserClass userClass)
+        {
+            if (ModelState.IsValidField("wallet"))
+            {
+
+                id = (int)Session["UserID"];
+                user_name = _context.UserDetails.Where(p => p.user_id == id).Single().firstname;
+                ViewBag.user_name = user_name;
+                wallet = _context.UserDetails.Where(p => p.user_id == id).Single().wallet;
+                ViewBag.wallet = wallet;
+
+                //return View();
+
+                //wyszukanie po id
+                var temp_user = _context.UserDetails.Find(id);
+                //MessageBox.Show(id.ToString());
+
+                if (temp_user != null)
+                {
+                    temp_user.wallet = temp_user.wallet + userClass.wallet;
+                    _context.SaveChanges();
+                };
+                //return View(_context.UserDetails.Where(p => p.user_id == id).Single());
+            }
+
+            //return View(_context.UserDetails.Where(p => p.user_id == id).Single());
+            return RedirectToAction("AddCash");
+        }
+
+
+
+
 
 
     }

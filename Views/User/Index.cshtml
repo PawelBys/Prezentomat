@@ -3,16 +3,13 @@
 @{
     ViewBag.Title = "Strona użytkownika";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    var gatherings = ViewBag.gatherings;
+    var size = ViewBag.size;
 }
 
 
 <main>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-
-
-    </style>
-
 
     </head>
     <body>
@@ -25,66 +22,41 @@
                     <h1 class="fw-light">Siema</h1>
                     Jakiś opis może
                     <p>
-                        <input type="submit" value="Stwórz zbiórkę" />
-                        <input type="submit" value="Przeglądaj swoje zbiórki" />
+                        <div class="btn-group">
+                            <div class="btn btn-sm btn-outline-secondary" style="background-color:aliceblue;color:black;text-decoration:none;">@Html.ActionLink("Stwórz zbiórkę", "Create", "Gathering")</div>
+                            <div class="btn btn-sm btn-outline-secondary" style="background-color:aliceblue;color:black;text-decoration:none;">@Html.ActionLink("Przeglądaj swoje zbiórki", "Index", "Gathering")</div>
+                        </div>
                     </p>
                 </div>
             </div>
         </section>
 
 
-        <div class="album py-5 bg-light">
+        <div class="album py-5">
             <div class="container">
 
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img src="https://magazynvip.pl/wp-content/uploads/2019/04/AdobeStock_205831001-750x423.jpg" class="img-thumbnail" alt="...">
+                    @for(int i=0;i<3 && i<size;i++)
+                    {
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                <img src="https://magazynvip.pl/wp-content/uploads/2019/04/AdobeStock_205831001-750x423.jpg" class="img-thumbnail" alt="...">
 
-                            <div class="card-body">
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                <div class="card-body">
+                                    <h4 class="card-text">@gatherings[i].gathering_name</h4>
+                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            @Html.ActionLink("View", "Details","Gathering", new { id = gatherings[i].gathering_id }, new { @class = "btn btn-sm btn-outline-secondary" })
+                                            @Html.ActionLink("Edit", "Edit", "Gathering", new { id = gatherings[i].gathering_id }, new { @class = "btn btn-sm btn-outline-secondary" })
+
+                                        </div>
+                                        <small class="text-muted">@gatherings[i].finish_date</small>
                                     </div>
-                                    <small class="text-muted">9 mins</small>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img src="https://magazynvip.pl/wp-content/uploads/2019/04/AdobeStock_205831001-750x423.jpg" class="img-thumbnail" alt="...">
-
-                            <div class="card-body">
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                    </div>
-                                    <small class="text-muted">9 mins</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card shadow-sm">
-                            <img src="https://magazynvip.pl/wp-content/uploads/2019/04/AdobeStock_205831001-750x423.jpg" class="img-thumbnail" alt="...">
-
-                            <div class="card-body">
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                                    </div>
-                                    <small class="text-muted">9 mins</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>
@@ -96,14 +68,14 @@
             <dd>
                 @Html.DisplayFor(model => model.email)
             </dd>
+            <!--
+                <dt>
+                    @Html.DisplayNameFor(model => model.password)
+                </dt>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.password)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.password)
-            </dd>
+                <dd>
+                    @Html.DisplayFor(model => model.password)
+                </dd>-->
             <dd>
                 @Html.DisplayFor(model => model.firstname)
             </dd>
