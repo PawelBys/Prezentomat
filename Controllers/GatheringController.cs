@@ -59,10 +59,14 @@ namespace Prezentomat.Controllers
         // GET: Gathering/Details/5
         public ActionResult Details(int? id)
         {
-            // IN PROGRESSW
-            //var ifUserIsInUserOfGatheringClass = _context.UserOfGatheringDetails.Any(p => p.user_id == uid , p => p.gathering_id == id);
-            if (id == null /*|| !ifUserIsInUserOfGatheringClass*/) // jesli user moze oglada zbiorke (jesli jest w tabeli user of gathering)
+         
+            var userGatherings = _context.UserOfGatheringDetails.Where(p => p.user_id == uid).Select(a => a.gathering_id).ToList();
+            int notNullableGatheringId = id.GetValueOrDefault();
+            var ifUserHasThisGathering = _context.UserOfGatheringDetails.Any(x => userGatherings.Contains(notNullableGatheringId)); // musi być tak, bo id może być nullem
+            ViewBag.gathering_id = notNullableGatheringId;
+            if (id == null || !ifUserHasThisGathering) // jesli user moze oglada zbiorke (jesli jest w tabeli user of gathering)
             {
+                // tutaj ewentualnie coś w stylu " nie masz uprawnień do oglądania tej witryny"
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             
