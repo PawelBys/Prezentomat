@@ -5,6 +5,7 @@
     var wplaty = ViewBag.wplaty;
     var size = ViewBag.size;
     var gathering_id = ViewBag.gathering_id;
+    var creator = ViewBag.creator;
 }
 
 <!DOCTYPE html>
@@ -58,24 +59,25 @@
                         <button class="btn btn-primary" type="button" style="width:100%;border:1px solid;border-radius:15px;">Wpłać</button>
                     </div>
 
-                    <div class="col-sm-6 col-lg-4 item">
-                        <i class="fa fa-user-plus icon"></i>
-                        <h3 class="name">Dodaj użytkownika</h3>
-                        <p class="description"></p>
-                        <button class="btn btn-primary" type="button" style="width:100%;border:1px solid;border-radius:15px;">Dodaj</button>
-                    </div>
+                    @if (creator) {
+                        <div class="col-sm-6 col-lg-4 item">
+                            <i class="fa fa-user-plus icon"></i>
+                            <h3 class="name">Dodaj użytkownika</h3>
+                            <p class="description"></p>
+                            <button class="btn btn-primary" type="button" style="width:100%;border:1px solid;border-radius:15px;">Dodaj</button>
+                        </div>
 
-                    <div class="col-sm-6 col-lg-4 item">
-                        <i class="fa fa-user-plus icon"></i>
-                        <h3 class="name">Edytuj szczegóły</h3>
-                        <p class="description"></p>
-                        <button class="btn btn-primary" type="button" style="width:100%;border:1px solid;border-radius:15px;">
+                        <div class="col-sm-6 col-lg-4 item">
+                            <i class="fa fa-user-plus icon"></i>
+                            <h3 class="name">Edytuj szczegóły</h3>
+                            <p class="description"></p>
+                            <button class="btn btn-primary" type="button" style="width:100%;border:1px solid;border-radius:15px;">
 
-                            @Html.ActionLink("Edytuj", "Edit", new { id = gathering_id }@*,   new { @class = "btn btn-sm btn-outline-secondary" }*@)
+                                @Html.ActionLink("Edytuj", "Edit", new { id = gathering_id }@*,   new { @class = "btn btn-sm btn-outline-secondary" }*@)
 
-                        </button>
-                    </div>
-
+                            </button>
+                        </div>
+                    }
 
                     <div class="col-sm-6 col-lg-4 item">
                         <i class="fa fa-list-ul icon"></i>

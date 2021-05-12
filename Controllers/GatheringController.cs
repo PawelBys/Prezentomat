@@ -100,9 +100,17 @@ namespace Prezentomat.Controllers
                 }
                 
             }
+            if (uid == gatheringClass.creator_id)
+            {
+                ViewBag.creator = true;
+            }
+            else
+            {
+                ViewBag.creator = false;
+            }
             ViewBag.wplaty = wplaty;
             ViewBag.size = size;
-           
+            
 
             if (gatheringClass == null)
             {
