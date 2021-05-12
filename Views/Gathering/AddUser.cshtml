@@ -1,0 +1,18 @@
+﻿@model List<Prezentomat.Models.UserClass>
+
+@{
+    ViewBag.Title = "AddUser";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<h2>AddUser</h2>
+
+@foreach (var user in Model)
+{
+    using (Html.BeginRouteForm(user))
+    {
+        <input type="submit" value=@user.email />
+    }
+}
+
+

@@ -119,6 +119,51 @@ namespace Prezentomat.Controllers
             return View(gatheringClass);
         }
 
+        // GET: Gathering/AddUser
+        public ActionResult AddUser(int? id)
+        {
+
+            var users = _context.UserDetails.ToList();
+
+            var userOfGatherings = _context.UserOfGatheringDetails.Where(b => b.gathering_id == id).ToList();
+            for (int i = 0; i < userOfGatherings.Count(); i++)
+            {
+                int userId = userOfGatherings[i].user_id;
+                users.Remove(czyUser(users,userId));
+            }
+
+            return View(users);
+        }
+
+        private UserClass czyUser(List<UserClass> users, int userId)
+        {
+            for(int i = 0; i < users.Count(); i++)
+            {
+                if (users[i].user_id == userId)
+                {
+                    return users[i];
+                }
+            }
+            return null;
+        }
+
+        [HttpPost]
+        public ActionResult AddUser(UserClass userClass,int? id)
+        {
+            
+            _context.UserOfGatheringDetails.Add(new UserOfGatheringClass()
+            {
+                user_id=userClass.user_id,
+                gathering_id= (int)id,
+                joining_date= DateTime.Now
+
+            });
+            _context.SaveChanges();
+
+
+            return RedirectToAction("AddUser", id);
+        }
+
 
 
         // GET: Gathering/Create

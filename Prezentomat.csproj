@@ -289,6 +289,7 @@
     <Content Include="scss\_variables.scss" />
     <Content Include="Views\User\AddCash.cshtml" />
     <Content Include="Views\Gathering\Create.cshtml" />
+    <Content Include="Views\Gathering\AddUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
