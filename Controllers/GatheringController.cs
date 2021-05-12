@@ -76,7 +76,8 @@ namespace Prezentomat.Controllers
             var userOfGatheringClass = _context.UserOfGatheringDetails.Where(b => b.gathering_id == gatheringClass.gathering_id).ToList();
             //  zrobic tutaj zliczanie nie uzytkownikow zbiorki, bo wyswietlaja sie tez uzytkownicy ktorzy nic nie wplacili, ale liczyc w tabeli payment_history
             int size = userOfGatheringClass.Count();
-            string[] wplaty=new string[size];
+            int s = 0;
+            List<string> wplaty = new List<string>();
             for(int i=0; i < size; i++)
             {
                 int user_id = userOfGatheringClass[i].user_id;
@@ -96,7 +97,11 @@ namespace Prezentomat.Controllers
                 var nazwisko = _context.UserDetails.Where(b => b.user_id == user_id).Single().lastname;
                 if( !payments.Equals(""))
                 {
-                    wplaty[i] = imie + " " + nazwisko + " - wplata: " + ile + " zł";
+                    if (ile > 0)
+                    {
+                        wplaty.Add(imie + " " + nazwisko + " - wplata: " + ile + " zł");
+                        s++;
+                    }
                 }
                 
             }
@@ -109,7 +114,7 @@ namespace Prezentomat.Controllers
                 ViewBag.creator = false;
             }
             ViewBag.wplaty = wplaty;
-            ViewBag.size = size;
+            ViewBag.size = s;
             
 
             if (gatheringClass == null)
