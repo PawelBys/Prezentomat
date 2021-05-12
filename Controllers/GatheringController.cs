@@ -119,6 +119,33 @@ namespace Prezentomat.Controllers
             return View(gatheringClass);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Details(int wallet, int? id)
+        {
+            var userofgathering = _context.UserOfGatheringDetails.Where(p => p.user_id == uid).Where(a =>a.gathering_id == id).Single();
+             _context.PaymentHistoryDetails.Add(new PaymentHistoryClass()
+             {
+                 user_of_gathering_id = userofgathering.user_of_gathering_id,
+                 payment_date = DateTime.Now,
+                 amount_of_payment = wallet
+
+             });
+
+             var temp_user = _context.UserDetails.Find(uid);
+
+             if (temp_user != null)
+             {
+                 temp_user.wallet = temp_user.wallet - wallet;
+                 _context.SaveChanges();
+             };
+            
+            _context.SaveChanges();
+
+
+            return RedirectToAction("Details", id);
+        }
+
         // GET: Gathering/AddUser
         public ActionResult AddUser(int? id)
         {
