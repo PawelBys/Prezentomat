@@ -59,7 +59,7 @@ namespace Prezentomat.Controllers
         // GET: Gathering/Details/5
         public ActionResult Details(int? id)
         {
-         
+         // stad wziac #######################
             var userGatherings = _context.UserOfGatheringDetails.Where(p => p.user_id == uid).Select(a => a.gathering_id).ToList();
             int notNullableGatheringId = id.GetValueOrDefault();
             var ifUserHasThisGathering = _context.UserOfGatheringDetails.Any(x => userGatherings.Contains(notNullableGatheringId)); // musi być tak, bo id może być nullem
@@ -96,7 +96,12 @@ namespace Prezentomat.Controllers
                 var nazwisko = _context.UserDetails.Where(b => b.user_id == user_id).Single().lastname;
                 if( !payments.Equals(""))
                 {
+                    if (ile > 0)
+                    {
                     wplaty[i] = imie + " " + nazwisko + " - wplata: " + ile + " zł";
+                    }
+                    
+
                 }
                 
             }
