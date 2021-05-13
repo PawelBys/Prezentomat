@@ -150,25 +150,21 @@ namespace Prezentomat.Controllers
                             amount_of_payment = wallet
 
                         });
-                    if (temp_user.wallet < wallet) // jesli chce wpłacić za duzo na zbiórko a tyle nie ma na koncie               
-                    {
+                    
                        
                         if (temp_user != null)
                         {
-                            if (temp_user.wallet > wallet)
+                            if (temp_user.wallet >= wallet)
                             {
                                 userofgathering.amount_of_user_cash_in_gathering = userofgathering.amount_of_user_cash_in_gathering + wallet;
                                 temp_user.wallet = temp_user.wallet - wallet;
                                 thisGathering.current_amount = thisGathering.current_amount + wallet; // aktualizowanie aktualnie zebranej kwoty
                                 _context.SaveChanges();
                             }
-                            else
-                            {
-
-                            }
+                            else { }
                            
                         };
-                    }
+                    
                 }
                 if (in_out.Equals("Wypłać"))//czyli wypłata
                 {
