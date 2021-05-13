@@ -1,15 +1,13 @@
-﻿using System;
+﻿using Prezentomat.DataContext;
+using Prezentomat.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Prezentomat.DataContext;
-using Prezentomat.Models;
 
 namespace Prezentomat.Controllers
 {
@@ -141,29 +139,39 @@ namespace Prezentomat.Controllers
             if (in_out != null)
             {
 
+                
 
-                if (in_out.Equals("Wpłać")) // wpłata
-                {
-                    _context.PaymentHistoryDetails.Add(new PaymentHistoryClass()
+                    if (in_out.Equals("Wpłać")) // wpłata
                     {
-                        user_of_gathering_id = userofgathering.user_of_gathering_id,
-                        payment_date = DateTime.Now,
-                        amount_of_payment = wallet
+                        _context.PaymentHistoryDetails.Add(new PaymentHistoryClass()
+                        {
+                            user_of_gathering_id = userofgathering.user_of_gathering_id,
+                            payment_date = DateTime.Now,
+                            amount_of_payment = wallet
 
-                    });
-
-                    if (temp_user != null)
+                        });
+                    if (temp_user.wallet < wallet) // jesli chce wpłacić za duzo na zbiórko a tyle nie ma na koncie               
                     {
-                        userofgathering.amount_of_user_cash_in_gathering = userofgathering.amount_of_user_cash_in_gathering + wallet;
-                        temp_user.wallet = temp_user.wallet - wallet;
-                        thisGathering.current_amount = thisGathering.current_amount + wallet; // aktualizowanie aktualnie zebranej kwoty
-                        _context.SaveChanges();
-                    };
+                       
+                        if (temp_user != null)
+                        {
+                            if (temp_user.wallet > wallet)
+                            {
+                                userofgathering.amount_of_user_cash_in_gathering = userofgathering.amount_of_user_cash_in_gathering + wallet;
+                                temp_user.wallet = temp_user.wallet - wallet;
+                                thisGathering.current_amount = thisGathering.current_amount + wallet; // aktualizowanie aktualnie zebranej kwoty
+                                _context.SaveChanges();
+                            }
+                            else
+                            {
+
+                            }
+                           
+                        };
+                    }
                 }
                 if (in_out.Equals("Wypłać"))//czyli wypłata
                 {
-
-
 
                     if (userofgathering.amount_of_user_cash_in_gathering > 0) // jesli dokonywał wpłat                
                     {
