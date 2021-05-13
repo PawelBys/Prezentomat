@@ -15,6 +15,6 @@ namespace Prezentomat.Models
         public int user_id { get; set; }
         public int gathering_id { get; set; }
         public DateTime joining_date { get; set; }
-
+        public int amount_of_user_cash_in_gathering { get; set; }
     }
 }

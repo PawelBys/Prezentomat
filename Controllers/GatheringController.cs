@@ -59,11 +59,11 @@ namespace Prezentomat.Controllers
         // GET: Gathering/Details/5
         public ActionResult Details(int? id)
         {
-         // stad wziac #######################
             var userGatherings = _context.UserOfGatheringDetails.Where(p => p.user_id == uid).Select(a => a.gathering_id).ToList();
             int notNullableGatheringId = id.GetValueOrDefault();
             var ifUserHasThisGathering = _context.UserOfGatheringDetails.Any(x => userGatherings.Contains(notNullableGatheringId)); // musi być tak, bo id może być nullem
             ViewBag.gathering_id = notNullableGatheringId;
+            ViewBag.errorMessage = ""; // zerowanie errora który się wyświetla jeśli ktoś nie może wpłacić/wypłacić pieniędzy
             if (id == null || !ifUserHasThisGathering) // jesli user moze oglada zbiorke (jesli jest w tabeli user of gathering)
             {
                 // tutaj ewentualnie coś w stylu " nie masz uprawnień do oglądania tej witryny"
@@ -74,7 +74,6 @@ namespace Prezentomat.Controllers
 
             GatheringClass gatheringClass = _context.GatheringDetails.Find(id);
             var userOfGatheringClass = _context.UserOfGatheringDetails.Where(b => b.gathering_id == gatheringClass.gathering_id).ToList();
-            //  zrobic tutaj zliczanie nie uzytkownikow zbiorki, bo wyswietlaja sie tez uzytkownicy ktorzy nic nie wplacili, ale liczyc w tabeli payment_history
             int size = userOfGatheringClass.Count();
             int s = 0;
             List<string> wplaty = new List<string>();
@@ -82,27 +81,35 @@ namespace Prezentomat.Controllers
             {
                 int user_id = userOfGatheringClass[i].user_id;
                 int user_of_gathering_id = userOfGatheringClass[i].user_of_gathering_id;
-                int ile = 0;
-                List<PaymentHistoryClass> payments=new List<PaymentHistoryClass>();
-                try
-                {
-                    payments = _context.PaymentHistoryDetails.Where(b => b.user_of_gathering_id == user_of_gathering_id).ToList();
-                    for(int j = 0; j < payments.Count(); j++)
-                    {
-                        ile = ile + payments[j].amount_of_payment;
-                    }
 
-                }catch(Exception e){; }
+                int ile = userOfGatheringClass[i].amount_of_user_cash_in_gathering; // zrobilem dodatkowe pole w bazie, ktore trzyma ile aktualnie uzytkownik wplacil na zbiorke, uwzgledniajac i wplaty i wyplaty
+                
+                // wiec to liczenie na dole jest niepotrzebne
+
+                //int ile = 0;
+                
+                //List<PaymentHistoryClass> payments=new List<PaymentHistoryClass>();
+                //try
+                //{
+                //    payments = _context.PaymentHistoryDetails.Where(b => b.user_of_gathering_id == user_of_gathering_id).ToList();
+                //    for(int j = 0; j < payments.Count(); j++)
+                //    {
+                //        ile = ile + payments[j].amount_of_payment;
+                //    }
+
+                //}catch(Exception e){; }
+
+
                 var imie = _context.UserDetails.Where(b => b.user_id == user_id).Single().firstname;
                 var nazwisko = _context.UserDetails.Where(b => b.user_id == user_id).Single().lastname;
-                if( !payments.Equals(""))
-                {
+                //if( !payments.Equals("")  )
+                //{
                     if (ile > 0)
                     {
                         wplaty.Add(imie + " " + nazwisko + " - wplata: " + ile + " zł");
                         s++;
                     }
-                }
+                //}
                 
             }
             if (uid == gatheringClass.creator_id)
@@ -126,24 +133,77 @@ namespace Prezentomat.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Details(int wallet, int? id)
+        public ActionResult Details(int wallet, int? id, string in_out)
         {
-            var userofgathering = _context.UserOfGatheringDetails.Where(p => p.user_id == uid).Where(a =>a.gathering_id == id).Single();
-             _context.PaymentHistoryDetails.Add(new PaymentHistoryClass()
-             {
-                 user_of_gathering_id = userofgathering.user_of_gathering_id,
-                 payment_date = DateTime.Now,
-                 amount_of_payment = wallet
+            var userofgathering = _context.UserOfGatheringDetails.Where(p => p.user_id == uid).Where(a => a.gathering_id == id).Single();
+            var thisGathering = _context.GatheringDetails.Where(p => p.gathering_id == id).Single(); // aktualnie wybrana zbiorka
+            var temp_user = _context.UserDetails.Find(uid);
+            if (in_out != null)
+            {
 
-             });
 
-             var temp_user = _context.UserDetails.Find(uid);
+                if (in_out.Equals("Wpłać")) // wpłata
+                {
+                    _context.PaymentHistoryDetails.Add(new PaymentHistoryClass()
+                    {
+                        user_of_gathering_id = userofgathering.user_of_gathering_id,
+                        payment_date = DateTime.Now,
+                        amount_of_payment = wallet
 
-             if (temp_user != null)
-             {
-                 temp_user.wallet = temp_user.wallet - wallet;
-                 _context.SaveChanges();
-             };
+                    });
+
+                    if (temp_user != null)
+                    {
+                        userofgathering.amount_of_user_cash_in_gathering = userofgathering.amount_of_user_cash_in_gathering + wallet;
+                        temp_user.wallet = temp_user.wallet - wallet;
+                        thisGathering.current_amount = thisGathering.current_amount + wallet; // aktualizowanie aktualnie zebranej kwoty
+                        _context.SaveChanges();
+                    };
+                }
+                if (in_out.Equals("Wypłać"))//czyli wypłata
+                {
+
+
+
+                    if (userofgathering.amount_of_user_cash_in_gathering > 0) // jesli dokonywał wpłat                
+                    {
+                        if (userofgathering.amount_of_user_cash_in_gathering >= wallet) //jeśli chce wypłacić mniej niż łącznie wpłacił
+                        {
+
+
+                            if (temp_user != null)
+                            {
+
+                                _context.PayoffHistoryDetails.Add(new PayoffHistoryClass()
+                                {
+                                    id_user_of_gathering = userofgathering.user_of_gathering_id,
+                                    payoff_date = DateTime.Now,
+                                    amount_of_payment = wallet
+
+                                });
+
+                                userofgathering.amount_of_user_cash_in_gathering = userofgathering.amount_of_user_cash_in_gathering - wallet;
+                                temp_user.wallet = temp_user.wallet + wallet;
+                                //odejmij od pieniedzy aktualnie przez niego wplaconych
+                                thisGathering.current_amount = thisGathering.current_amount - wallet; // aktualizowanie aktualnie zebranej kwoty
+                                _context.SaveChanges();
+                            };
+
+                        }
+                        else
+                        {
+                            ViewBag.ErrorMessage = "Chcesz wypłacić więcej niż wpłaciłeś";
+                            return RedirectToAction("Details", id);
+                        }
+                    }
+                    else
+                    {
+                        ViewBag.ErrorMessage = "Nie wpłacałeś pieniędzy na tę zbiórkę";
+                        return RedirectToAction("Details", id);
+                    }
+                }
+            }
+             
             
             _context.SaveChanges();
 

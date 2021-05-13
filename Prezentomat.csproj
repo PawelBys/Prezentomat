@@ -179,6 +179,7 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="CustomAuthorize.cs" />
     <Compile Include="DataContext\ApplicationDbContext.cs" />
+    <Compile Include="Models\PayoffHistoryClass.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -290,9 +291,12 @@
     <Content Include="Views\User\AddCash.cshtml" />
     <Content Include="Views\Gathering\Create.cshtml" />
     <Content Include="Views\Gathering\AddUser.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\.editorconfig" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\UserClasses\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -18,6 +18,7 @@ namespace Prezentomat.Models
         [Required]
         public int target_amount { get; set; }
         [Required]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime finish_date { get; set; }
         [Required]
         public string gathering_name { get; set; }

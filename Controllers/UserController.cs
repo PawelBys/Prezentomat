@@ -10,6 +10,8 @@ using Prezentomat.Classes;
 using System.Windows;
 using System.Data.Entity.Validation;
 using System.Collections.Generic;
+using System.Net;
+using System.Data.Entity;
 
 namespace Prezentomat.Controllers
 {
@@ -237,7 +239,51 @@ namespace Prezentomat.Controllers
         }
 
 
+        // GET: UserClasses/Edit/5
+        public ActionResult Edit(int? id)
+        {
+            id = (int)Session["UserID"];
+            user_name = _context.UserDetails.Where(p => p.user_id == id).Single().firstname;
+            ViewBag.user_name = user_name;
+            wallet = _context.UserDetails.Where(p => p.user_id == id).Single().wallet;
+            ViewBag.wallet = wallet;
 
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            UserClass userClass = _context.UserDetails.Find(id);
+            if (userClass == null)
+            {
+                return HttpNotFound();
+            }
+            return View(userClass);
+        }
+
+        // POST: UserClasses/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "email,firstname,lastname,birthdate")] UserClass userClass)
+        {
+            id = (int)Session["UserID"];
+            user_name = _context.UserDetails.Where(p => p.user_id == id).Single().firstname;
+            ViewBag.user_name = user_name;
+            wallet = _context.UserDetails.Where(p => p.user_id == id).Single().wallet;
+            ViewBag.wallet = wallet;
+
+            if (ModelState.IsValidField("email") && ModelState.IsValidField("firstname") && ModelState.IsValidField("lastname") && ModelState.IsValidField("birthdate")) 
+            {
+                _context.Entry(userClass).State = EntityState.Modified;
+               // _context.SaveChanges();
+
+                // tu sypie błędem
+
+                return RedirectToAction("Index");
+            }
+            return View(userClass);
+        }
 
 
 

@@ -7,6 +7,8 @@
     var gathering_id = ViewBag.gathering_id;
     var creator = ViewBag.creator;
     var wallet = ViewBag.wallet;
+    var in_out = ViewBag.in_out;
+    var errorMessage = ViewBag.ErrorMessage;
 }
 
 <!DOCTYPE html>
@@ -91,14 +93,19 @@
                     @using (Html.BeginForm())
                     {
                         @Html.AntiForgeryToken()
-                        <div class="col-sm-6 col-lg-4 item">
-                            <i class="fa fa-line-chart icon"></i>
-                            <h3 class="name">Dokonaj wpłaty na zbiórke</h3>
-                            <p class="description"></p>
-                            @Html.TextBoxFor(m => wallet, new { @type = "number", @class = "span4", @min = "0", @Value = "0", Style="background: #cccccc; border:1px solid black; color: black;" })<br /><br>
-                           <input class="btn btn-primary" type="submit" value="Wpłać" style="width:100%;border:1px solid;border-radius:15px;">
-                        </div>
+                <div class="col-sm-6 col-lg-4 item">
+                    <i class="fa fa-line-chart icon"></i>
+                    <h3 class="name">Dokonaj wpłaty/wypłaty na zbiórke</h3>
+                    <p class="description"> Możesz wypłacić tylko pieniądze, które sam wpłaciłeś na zbiórkę. @errorMessage</p>
+                    @Html.TextBoxFor(m => wallet, new { @type = "number", @class = "span4", @min = "0", @Value = "0", Style = "background: #cccccc; border:1px solid black; color: black;" })<br /><br>
+                    Wpłać @Html.RadioButtonFor(m => in_out, "Wpłać")
+                    &nbspWypłać @Html.RadioButtonFor(m => in_out, "Wypłać")<br />
+                    <input class="btn btn-primary" type="submit" value="Wpłać/Wypłać" style="width:100%;border:1px solid;border-radius:15px;">
+                </div>
                     }
+
+
+                    
 
                 </div>
             </div>
