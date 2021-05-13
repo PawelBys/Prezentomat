@@ -5,6 +5,8 @@
     var wplaty = ViewBag.wplaty;
     var size = ViewBag.size;
     var gathering_id = ViewBag.gathering_id;
+    var creator = ViewBag.creator;
+    var wallet = ViewBag.wallet;
 }
 
 <!DOCTYPE html>
@@ -51,31 +53,28 @@
                         <p class="description">@Html.DisplayFor(model => model.current_amount)</p>
                     </div>
 
-                    <div class="col-sm-6 col-lg-4 item">
-                        <i class="fa fa-line-chart icon"></i>
-                        <h3 class="name">Dokonaj wpłaty na zbiórke</h3>
-                        <p class="description"></p>
-                        <button class="btn btn-primary" type="button" style="width:100%;border:1px solid;border-radius:15px;">Wpłać</button>
-                    </div>
+                    @if (creator)
+                    {
+                        <div class="col-sm-6 col-lg-4 item">
+                            <i class="fa fa-user-plus icon"></i>
+                            <h3 class="name">Dodaj użytkownika</h3>
+                            <p class="description"></p>
+                            <button class="btn btn-primary" type="button" style="width:100%;border:1px solid;border-radius:15px;text-decoration:none;">
+                                @Html.ActionLink("Dodaj", "AddUser", new { id = gathering_id }, new { @type = "number", @class = "span4", @min = "0", @Value = "0", Style = "color: white;text-decoration:none;" })
+                            </button>
+                        </div>
 
-                    <div class="col-sm-6 col-lg-4 item">
-                        <i class="fa fa-user-plus icon"></i>
-                        <h3 class="name">Dodaj użytkownika</h3>
-                        <p class="description"></p>
-                        <button class="btn btn-primary" type="button" style="width:100%;border:1px solid;border-radius:15px;">Dodaj</button>
-                    </div>
+                        <div class="col-sm-6 col-lg-4 item">
+                            <i class="fa fa-user-plus icon"></i>
+                            <h3 class="name">Edytuj szczegóły</h3>
+                            <p class="description"></p>
+                            <button class="btn btn-primary" type="button" style="width:100%;border:1px solid;border-radius:15px;">
 
-                    <div class="col-sm-6 col-lg-4 item">
-                        <i class="fa fa-user-plus icon"></i>
-                        <h3 class="name">Edytuj szczegóły</h3>
-                        <p class="description"></p>
-                        <button class="btn btn-primary" type="button" style="width:100%;border:1px solid;border-radius:15px;">
+                                @Html.ActionLink("Edytuj", "Edit", new { id = gathering_id }, new { @type = "number", @class = "span4", @min = "0", @Value = "0", Style = "color: white;text-decoration:none;" }@*,   new { @class = "btn btn-sm btn-outline-secondary" }*@)
 
-                            @Html.ActionLink("Edytuj", "Edit", new { id = gathering_id }@*,   new { @class = "btn btn-sm btn-outline-secondary" }*@)
-
-                        </button>
-                    </div>
-
+                            </button>
+                        </div>
+                    }
 
                     <div class="col-sm-6 col-lg-4 item">
                         <i class="fa fa-list-ul icon"></i>
@@ -88,6 +87,18 @@
 
                         </ul>
                     </div>
+
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="col-sm-6 col-lg-4 item">
+                            <i class="fa fa-line-chart icon"></i>
+                            <h3 class="name">Dokonaj wpłaty na zbiórke</h3>
+                            <p class="description"></p>
+                            @Html.TextBoxFor(m => wallet, new { @type = "number", @class = "span4", @min = "0", @Value = "0", Style="background: #cccccc; border:1px solid black; color: black;" })<br /><br>
+                           <input class="btn btn-primary" type="submit" value="Wpłać" style="width:100%;border:1px solid;border-radius:15px;">
+                        </div>
+                    }
 
                 </div>
             </div>

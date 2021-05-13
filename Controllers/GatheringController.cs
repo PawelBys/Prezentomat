@@ -76,7 +76,8 @@ namespace Prezentomat.Controllers
             var userOfGatheringClass = _context.UserOfGatheringDetails.Where(b => b.gathering_id == gatheringClass.gathering_id).ToList();
             //  zrobic tutaj zliczanie nie uzytkownikow zbiorki, bo wyswietlaja sie tez uzytkownicy ktorzy nic nie wplacili, ale liczyc w tabeli payment_history
             int size = userOfGatheringClass.Count();
-            string[] wplaty=new string[size];
+            int s = 0;
+            List<string> wplaty = new List<string>();
             for(int i=0; i < size; i++)
             {
                 int user_id = userOfGatheringClass[i].user_id;
@@ -98,22 +99,101 @@ namespace Prezentomat.Controllers
                 {
                     if (ile > 0)
                     {
-                    wplaty[i] = imie + " " + nazwisko + " - wplata: " + ile + " zł";
+                        wplaty.Add(imie + " " + nazwisko + " - wplata: " + ile + " zł");
+                        s++;
                     }
-                    
-
                 }
                 
             }
+            if (uid == gatheringClass.creator_id)
+            {
+                ViewBag.creator = true;
+            }
+            else
+            {
+                ViewBag.creator = false;
+            }
             ViewBag.wplaty = wplaty;
-            ViewBag.size = size;
-           
+            ViewBag.size = s;
+            
 
             if (gatheringClass == null)
             {
                 return HttpNotFound();
             }
             return View(gatheringClass);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Details(int wallet, int? id)
+        {
+            var userofgathering = _context.UserOfGatheringDetails.Where(p => p.user_id == uid).Where(a =>a.gathering_id == id).Single();
+             _context.PaymentHistoryDetails.Add(new PaymentHistoryClass()
+             {
+                 user_of_gathering_id = userofgathering.user_of_gathering_id,
+                 payment_date = DateTime.Now,
+                 amount_of_payment = wallet
+
+             });
+
+             var temp_user = _context.UserDetails.Find(uid);
+
+             if (temp_user != null)
+             {
+                 temp_user.wallet = temp_user.wallet - wallet;
+                 _context.SaveChanges();
+             };
+            
+            _context.SaveChanges();
+
+
+            return RedirectToAction("Details", id);
+        }
+
+        // GET: Gathering/AddUser
+        public ActionResult AddUser(int? id)
+        {
+
+            var users = _context.UserDetails.ToList();
+
+            var userOfGatherings = _context.UserOfGatheringDetails.Where(b => b.gathering_id == id).ToList();
+            for (int i = 0; i < userOfGatherings.Count(); i++)
+            {
+                int userId = userOfGatherings[i].user_id;
+                users.Remove(czyUser(users,userId));
+            }
+
+            return View(users);
+        }
+
+        private UserClass czyUser(List<UserClass> users, int userId)
+        {
+            for(int i = 0; i < users.Count(); i++)
+            {
+                if (users[i].user_id == userId)
+                {
+                    return users[i];
+                }
+            }
+            return null;
+        }
+
+        [HttpPost]
+        public ActionResult AddUser(UserClass userClass,int? id)
+        {
+            
+            _context.UserOfGatheringDetails.Add(new UserOfGatheringClass()
+            {
+                user_id=userClass.user_id,
+                gathering_id= (int)id,
+                joining_date= DateTime.Now
+
+            });
+            _context.SaveChanges();
+
+
+            return RedirectToAction("AddUser", id);
         }
 
 

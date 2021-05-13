@@ -1,0 +1,31 @@
+﻿@model List<Prezentomat.Models.UserClass>
+
+@{
+    ViewBag.Title = "AddUser";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    var i = 0;
+}
+
+<main>
+    <div class="Clear-flex-box-row">
+        <div class="Flex-box-col">
+            
+            @foreach (var user in Model)
+            {
+                using (Html.BeginRouteForm(user))
+                {
+                    <br>
+                    <input type="submit" value=@user.email style="border: 1px solid; border-radius: 15px; padding:10px 25px;text-decoration:none;color:white;background:none;cursor:pointer;font-size:16px;align-self:center; " />
+                }
+                i++;
+            }
+            @if(i==0)
+            {
+                <button style="border: 1px solid; border-radius: 15px; padding:10px 25px;text-decoration:none;color:white;background:none;font-size:16px;align-self:center; ">
+                    Brak możliwych użytkowników do dodania
+                </button>
+            }
+            <br>
+        </div>
+    </div>
+</main>
