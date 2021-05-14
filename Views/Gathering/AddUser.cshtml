@@ -4,12 +4,24 @@
     ViewBag.Title = "AddUser";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
     var i = 0;
+    var search="";
 }
 
 <main>
     <div class="Clear-flex-box-row">
         <div class="Flex-box-col">
-            
+            @using (Html.BeginForm())
+            {
+                <div class="Clear-flex-box-col">
+                    <div class="Flex-box-input">
+                        <img src="~/Images/at.png" />
+                        @Html.TextBoxFor(m => search, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+
+                <input type="submit" value="Szukaj" style="border: 1px solid; border-radius: 15px; padding:10px 25px;text-decoration:none;color:white;background:none;cursor:pointer;font-size:16px;align-self:center; " />
+            }
+
             @foreach (var user in Model)
             {
                 using (Html.BeginRouteForm(user))
@@ -19,7 +31,7 @@
                 }
                 i++;
             }
-            @if(i==0)
+            @if (i == 0)
             {
                 <button style="border: 1px solid; border-radius: 15px; padding:10px 25px;text-decoration:none;color:white;background:none;font-size:16px;align-self:center; ">
                     Brak możliwych użytkowników do dodania

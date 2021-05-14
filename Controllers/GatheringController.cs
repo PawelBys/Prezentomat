@@ -244,21 +244,47 @@ namespace Prezentomat.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddUser(UserClass userClass,int? id)
+        public ActionResult AddUser(UserClass userClass,string search,int? id)
         {
-            
-            _context.UserOfGatheringDetails.Add(new UserOfGatheringClass()
+            if (search == null)
             {
-                user_id=userClass.user_id,
-                gathering_id= (int)id,
-                joining_date= DateTime.Now
+                _context.UserOfGatheringDetails.Add(new UserOfGatheringClass()
+                {
+                    user_id = userClass.user_id,
+                    gathering_id = (int)id,
+                    joining_date = DateTime.Now
 
-            });
-            _context.SaveChanges();
+                });
+                _context.SaveChanges();
 
 
-            return RedirectToAction("AddUser", id);
+                return RedirectToAction("AddUser", id);
+            }
+            else
+            {
+                var users = _context.UserDetails.ToList();
+
+                var userOfGatherings = _context.UserOfGatheringDetails.Where(b => b.gathering_id == id).ToList();
+                for (int i = 0; i < userOfGatherings.Count(); i++)
+                {
+                    int userId = userOfGatherings[i].user_id;
+                    users.Remove(czyUser(users, userId));
+                }
+
+                List<UserClass> user = new List<UserClass>();
+
+                for (int i = 0; i < users.Count(); i++)
+                {
+                    if (users[i].email.Contains(search))
+                    {
+                        user.Add(users[i]);
+                    }
+                }
+
+                return View(user);
+            }
         }
+
 
 
 
