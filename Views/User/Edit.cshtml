@@ -1,0 +1,72 @@
+﻿@model Prezentomat.Models.UserClass
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+
+<main>
+    <h2>Edytuj swoje dane</h2>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+       <div class="Clear-flex-box-row">
+   
+           <div class="Flex-box-col">
+
+
+               Email
+               <div class="Clear-flex-box-col">
+                   <div class="Flex-box-input">
+                       <img src="~/Images/at.png" />
+                       @Html.TextBoxFor(model => model.email)
+                   </div>
+
+               </div>
+
+
+
+               Imię
+               <div class="Clear-flex-box-col">
+                   <div class="Flex-box-input">
+                       <img src="~/Images/name.png" />
+                       @Html.TextBoxFor(model => model.firstname)
+                   </div>
+
+               </div>
+
+               Nazwisko
+               <div class="Clear-flex-box-col">
+                   <div class="Flex-box-input">
+                       <img src="~/Images/name.png" />
+                       @Html.TextBoxFor(model => model.lastname)
+                   </div>
+
+               </div>
+
+               Data urodzenia
+               <div class="Clear-flex-box-col">
+                   <div class="Flex-box-input">
+                       <img src="~/Images/birthday.png" />
+                       @Html.TextBoxFor(model => model.birthdate)
+                   </div>
+
+               </div>
+
+
+
+
+               <input type="submit" value="Zapisz zmiany" style="border: 1px solid; border-radius: 15px" />
+
+               <div>
+                   @Html.ActionLink("Powrót", "Index")
+               </div>
+
+           </div>
+        </div>
+     }
+</main>
+

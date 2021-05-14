@@ -19,8 +19,8 @@
         <section class="py-5 text-center container">
             <div class="row py-lg-5">
                 <div class="col-lg-6 col-md-8 mx-auto">
-                    <h1 class="fw-light">Siema</h1>
-                    Jakiś opis może
+                    <h1 class="fw-light">Witaj w Prezentomacie</h1>
+                    Na tej stronie możesz zarządzać zbiórkami do których masz dostęp, a także masz podgląd do swoich danych.
                     <p>
                         <div class="btn-group">
                             <div class="btn btn-sm btn-outline-secondary" style="background-color:aliceblue;color:black;text-decoration:none;">@Html.ActionLink("Stwórz zbiórkę", "Create", "Gathering")</div>
@@ -47,11 +47,11 @@
                                     <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
-                                            @Html.ActionLink("View", "Details","Gathering", new { id = gatherings[i].gathering_id }, new { @class = "btn btn-sm btn-outline-secondary" })
-                                            @Html.ActionLink("Edit", "Edit", "Gathering", new { id = gatherings[i].gathering_id }, new { @class = "btn btn-sm btn-outline-secondary" })
+                                            @Html.ActionLink("Szczegóły", "Details","Gathering", new { id = gatherings[i].gathering_id }, new { @class = "btn btn-sm btn-outline-secondary" })
+                                            @Html.ActionLink("Edytuj", "Edit", "Gathering", new { id = gatherings[i].gathering_id }, new { @class = "btn btn-sm btn-outline-secondary" })
 
                                         </div>
-                                        <small class="text-muted">@gatherings[i].finish_date</small>
+                                        <small class="text-muted">@gatherings[i].finish_date.ToString("dd/MM/yyyy")</small>
                                     </div>
                                 </div>
                             </div>
@@ -61,43 +61,33 @@
             </div>
         </div>
         <dl class="Flex-box-col">
-            <dt>
-                @Html.DisplayNameFor(model => model.email)
-            </dt>
+            <h3>Twoje dane</h3>
 
+
+            <dt>Email</dt>
             <dd>
                 @Html.DisplayFor(model => model.email)
             </dd>
-            <!--
-                <dt>
-                    @Html.DisplayNameFor(model => model.password)
-                </dt>
-
-                <dd>
-                    @Html.DisplayFor(model => model.password)
-                </dd>-->
+            <dt>Imię</dt>
             <dd>
                 @Html.DisplayFor(model => model.firstname)
             </dd>
+            <dt>Nazwisko</dt>
             <dd>
                 @Html.DisplayFor(model => model.lastname)
             </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.birthdate)
-            </dt>
 
+            <dt>Data urodzenia</dt>
             <dd>
                 @Html.DisplayFor(model => model.birthdate)
             </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.wallet)
-            </dt>
-
+            <dt>Portfel</dt>
             <dd>
                 @Html.DisplayFor(model => model.wallet)
             </dd>
 
+            @Html.ActionLink("Edytuj swoje dane", "Edit", new { id = Model.user_id }, new { @class = "btn btn-sm btn-outline-secondary" })
 
 
 
