@@ -59,22 +59,16 @@
                     {
                         <div class="col-sm-6 col-lg-4 item">
                             <i class="fa fa-user-plus icon"></i>
-                            <h3 class="name">Dodaj użytkownika</h3>
+                            <h3 class="name">Dodaj/Usuń użytkownika</h3>
                             <p class="description"></p>
-                            <button class="btn btn-primary" type="button" style="width:100%;border:1px solid;border-radius:15px;text-decoration:none;">
-                                @Html.ActionLink("Dodaj", "AddUser", new { id = gathering_id }, new { @type = "number", @class = "span4", @min = "0", @Value = "0", Style = "color: white;text-decoration:none;" })
-                            </button>
+                            @Html.ActionLink("Dodaj/Usuń", "AddUser", new { id = gathering_id }, new { @type = "number", @class = "btn btn-primary", @min = "0", @Value = "0", Style = "width:100%;border:1px solid;border-radius:15px;color: white;text-decoration:none;" })
                         </div>
 
                         <div class="col-sm-6 col-lg-4 item">
                             <i class="fa fa-user-plus icon"></i>
                             <h3 class="name">Edytuj szczegóły</h3>
                             <p class="description"></p>
-                            <button class="btn btn-primary" type="button" style="width:100%;border:1px solid;border-radius:15px;">
-
-                                @Html.ActionLink("Edytuj", "Edit", new { id = gathering_id }, new { @type = "number", @class = "span4", @min = "0", @Value = "0", Style = "color: white;text-decoration:none;" }@*,   new { @class = "btn btn-sm btn-outline-secondary" }*@)
-
-                            </button>
+                            @Html.ActionLink("Edytuj", "Edit", new { id = gathering_id }, new { @type = "number", @class = "btn btn-primary", @min = "0", @Value = "0", Style = "width:100%;border:1px solid;border-radius:15px;color: white;text-decoration:none;" })
                         </div>
                     }
 
@@ -97,7 +91,7 @@
                     <i class="fa fa-line-chart icon"></i>
                     <h3 class="name">Dokonaj wpłaty/wypłaty na zbiórke</h3>
                     <p class="description"> Możesz wypłacić tylko pieniądze, które sam wpłaciłeś na zbiórkę. @errorMessage</p>
-                    @Html.TextBoxFor(m => wallet, new { @type = "number", @class = "span4", @min = "0", @Value = "0", Style = "background: #cccccc; border:1px solid black; color: black;" })<br /><br>
+                    @Html.TextBoxFor(m => wallet, new { @type = "number", @class = "span4", @min = "0", @Value = "0", Style = "background: none; border:1px solid black; color: white;" })<br /><br>
                     Wpłać @Html.RadioButtonFor(m => in_out, "Wpłać")
                     &nbspWypłać @Html.RadioButtonFor(m => in_out, "Wypłać")<br />
                     <input class="btn btn-primary" type="submit" value="Wpłać/Wypłać" style="width:100%;border:1px solid;border-radius:15px;">
