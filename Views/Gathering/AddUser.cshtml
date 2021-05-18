@@ -1,43 +1,91 @@
-﻿@model List<Prezentomat.Models.UserClass>
+﻿@model Prezentomat.Models.AddUserOfGathering
 
 @{
     ViewBag.Title = "AddUser";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
     var i = 0;
+    var j = 0;
     var search="";
+    List<Prezentomat.Models.UserClass> added = Model.added;
+    List<Prezentomat.Models.UserClass> noadded = Model.noadded;
 }
-
+<head>
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/Features-Clean.css" />
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" />
+</head>
 <main>
-    <div class="Clear-flex-box-row">
-        <div class="Flex-box-col">
-            @using (Html.BeginForm())
-            {
-                <div class="Clear-flex-box-col">
-                    <div class="Flex-box-input">
-                        <img src="~/Images/at.png" />
-                        @Html.TextBoxFor(m => search, new { htmlAttributes = new { @class = "form-control" } })
+    <br/><br/>
+    <section class="features-clean">
+
+        <div class="container">
+            <div class="row features">
+
+                @using (Html.BeginForm())
+                {
+                    <div class="col-sm-6">
+
+                       
+                        @Html.TextBoxFor(m => search, new { @type = "string", @class = "span4", Style = "padding: 10px 25px; border: 1px solid; border-radius: 15px; background: none; width:100%; color: white;" })
+
                     </div>
+                    <div class="col-sm-6">
+                        <input class="btn btn-primary" type="submit" value="Szukaj" style="width: 100%; border: 1px solid; border-radius: 15px; " />
+                    </div>
+                }
+
+            </div>
+
+            <br /><br />
+            <div class="row features">
+                <div class="col-sm-6 item">
+                    <i class="fa fa-user-times icon"></i>
+                    <h3 class="name">Użytkownicy do usunięcia</h3>
+
+
+                    @foreach (var user in added)
+                    {
+                        using (Html.BeginRouteForm(user))
+                        {
+                            <br>
+                            <input type="submit" value=@user.email style="border: 1px solid; border-radius: 15px; padding:10px 25px;text-decoration:none;color:white;background:none;cursor:pointer;font-size:16px;align-self:center; " />
+                        }
+                        i++;
+                    }
+                    @if (i == 0)
+                    {
+                        <button style="border: 1px solid; border-radius: 15px; padding:10px 25px;text-decoration:none;color:white;background:none;font-size:16px;align-self:center; ">
+                            Brak możliwych użytkowników do usunięcia
+                        </button>
+                    }
+                    
+                    <br>
                 </div>
 
-                <input type="submit" value="Szukaj" style="border: 1px solid; border-radius: 15px; padding:10px 25px;text-decoration:none;color:white;background:none;cursor:pointer;font-size:16px;align-self:center; " />
-            }
+                <div class="col-sm-6 item">
+                    <i class="fa fa-user-plus icon"></i>
+                    <h3 class="name">Użytkownicy do dodania</h3>
 
-            @foreach (var user in Model)
-            {
-                using (Html.BeginRouteForm(user))
-                {
+                    @foreach (var user in noadded)
+                    {
+                        using (Html.BeginRouteForm(user))
+                        {
+                            <br>
+                            <input type="submit" value=@user.email style="border: 1px solid; border-radius: 15px; padding:10px 25px;text-decoration:none;color:white;background:none;cursor:pointer;font-size:16px;align-self:center; " />
+                        }
+                        j++;
+                    }
+                    @if (j == 0)
+                    {
+                        <button style="border: 1px solid; border-radius: 15px; padding:10px 25px;text-decoration:none;color:white;background:none;font-size:16px;align-self:center; ">
+                            Brak możliwych użytkowników do dodania
+                        </button>
+                    }
                     <br>
-                    <input type="submit" value=@user.email style="border: 1px solid; border-radius: 15px; padding:10px 25px;text-decoration:none;color:white;background:none;cursor:pointer;font-size:16px;align-self:center; " />
-                }
-                i++;
-            }
-            @if (i == 0)
-            {
-                <button style="border: 1px solid; border-radius: 15px; padding:10px 25px;text-decoration:none;color:white;background:none;font-size:16px;align-self:center; ">
-                    Brak możliwych użytkowników do dodania
-                </button>
-            }
-            <br>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+    <script src="~/Scripts/jquery-3.4.1.min.js"
+    <script src="~/Scripts/bootstrap.min.js"
 </main>

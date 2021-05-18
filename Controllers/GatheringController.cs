@@ -27,6 +27,7 @@ namespace Prezentomat.Controllers
                 uid = (int)Session["UserID"];
                 user_name = _context.UserDetails.Where(p => p.user_id == uid).Single().firstname;
                 ViewBag.user_name = user_name;
+                ViewBag.user_id = uid;
                 wallet = _context.UserDetails.Where(p => p.user_id == uid).Single().wallet;
                 ViewBag.wallet = wallet;
             }
@@ -218,21 +219,28 @@ namespace Prezentomat.Controllers
         // GET: Gathering/AddUser
         public ActionResult AddUser(int? id)
         {
-
-            var users = _context.UserDetails.ToList();
+            AddUserOfGathering users = new AddUserOfGathering();
+            users.added = _context.UserDetails.ToList();
+            users.noadded = new List<UserClass>();
 
             var userOfGatherings = _context.UserOfGatheringDetails.Where(b => b.gathering_id == id).ToList();
             for (int i = 0; i < userOfGatherings.Count(); i++)
             {
                 int userId = userOfGatherings[i].user_id;
-                users.Remove(czyUser(users,userId));
+                var user = czyUser(users.added, userId);
+                users.added.Remove(user);
+                users.noadded.Add(user);
             }
+
+            var u = _context.UserDetails.Find(uid);
+            users.noadded.Remove(u);
 
             return View(users);
         }
 
         private UserClass czyUser(List<UserClass> users, int userId)
         {
+            
             for(int i = 0; i < users.Count(); i++)
             {
                 if (users[i].user_id == userId)
@@ -248,40 +256,65 @@ namespace Prezentomat.Controllers
         {
             if (search == null)
             {
-                _context.UserOfGatheringDetails.Add(new UserOfGatheringClass()
+
+                var userOfGatherings = _context.UserOfGatheringDetails.Where(b => b.gathering_id == id).Where(c=>c.user_id==userClass.user_id).Count();
+                if (userOfGatherings == 0)
                 {
-                    user_id = userClass.user_id,
-                    gathering_id = (int)id,
-                    joining_date = DateTime.Now
+                    _context.UserOfGatheringDetails.Add(new UserOfGatheringClass()
+                    {
+                        user_id = userClass.user_id,
+                        gathering_id = (int)id,
+                        joining_date = DateTime.Now
 
-                });
-                _context.SaveChanges();
+                    });
+                    _context.SaveChanges();
 
-
+                }
+                else if(userOfGatherings==1)
+                {
+                    _context.UserOfGatheringDetails.Remove(_context.UserOfGatheringDetails.Where(b => b.gathering_id == id).Where(c => c.user_id == userClass.user_id).Single());
+                    _context.SaveChanges();
+                }
                 return RedirectToAction("AddUser", id);
             }
             else
             {
-                var users = _context.UserDetails.ToList();
+                AddUserOfGathering users = new AddUserOfGathering();
+                users.added = _context.UserDetails.ToList();
+                users.noadded = new List<UserClass>();
 
                 var userOfGatherings = _context.UserOfGatheringDetails.Where(b => b.gathering_id == id).ToList();
                 for (int i = 0; i < userOfGatherings.Count(); i++)
                 {
                     int userId = userOfGatherings[i].user_id;
-                    users.Remove(czyUser(users, userId));
+                    var user = czyUser(users.added, userId);
+                    users.added.Remove(user);
+                    users.noadded.Add(user);
                 }
 
-                List<UserClass> user = new List<UserClass>();
+                var u = _context.UserDetails.Find(uid);
+                users.noadded.Remove(u);
+                AddUserOfGathering use = new AddUserOfGathering();
+                use.added = new List<UserClass>();
+                use.noadded = new List<UserClass>();
 
-                for (int i = 0; i < users.Count(); i++)
+                for (int i = 0; i < users.added.Count(); i++)
                 {
-                    if (users[i].email.Contains(search))
+                    if (users.added[i].email.Contains(search))
                     {
-                        user.Add(users[i]);
+                        use.added.Add(users.added[i]);
                     }
                 }
 
-                return View(user);
+                for (int i = 0; i < users.noadded.Count(); i++)
+                {
+                    if (users.noadded[i].email.Contains(search))
+                    {
+                        use.noadded.Add(users.noadded[i]);
+                    }
+                }
+
+                return View(use);
             }
         }
 

@@ -32,6 +32,7 @@ namespace Prezentomat.Controllers
                 user_name = _context.UserDetails.Where(p => p.user_id == id).Single().firstname;
                 wallet = _context.UserDetails.Where(p => p.user_id == id).Single().wallet;
                 ViewBag.user_name = user_name;
+                ViewBag.user_id = id;
                 ViewBag.wallet = wallet;
             }
 

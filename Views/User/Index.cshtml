@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
     var gatherings = ViewBag.gatherings;
     var size = ViewBag.size;
+    var user_id = ViewBag.user_id;
 }
 
 
@@ -48,8 +49,10 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
                                             @Html.ActionLink("Szczegóły", "Details","Gathering", new { id = gatherings[i].gathering_id }, new { @class = "btn btn-sm btn-outline-secondary" })
-                                            @Html.ActionLink("Edytuj", "Edit", "Gathering", new { id = gatherings[i].gathering_id }, new { @class = "btn btn-sm btn-outline-secondary" })
-
+                                            @if (gatherings[i].creator_id == user_id)
+                                            {
+                                                @Html.ActionLink("Edytuj", "Edit", "Gathering", new { id = gatherings[i].gathering_id }, new { @class = "btn btn-sm btn-outline-secondary" })
+                                            }
                                         </div>
                                         <small class="text-muted">@gatherings[i].finish_date.ToString("dd/MM/yyyy")</small>
                                     </div>
