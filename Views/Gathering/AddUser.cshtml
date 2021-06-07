@@ -37,53 +37,54 @@
             </div>
 
             <br /><br />
-            <div class="row features">
-                <div class="col-sm-6 item">
-                    <i class="fa fa-user-times icon"></i>
-                    <h3 class="name">Użytkownicy do usunięcia</h3>
+                  <div class="row features">
+                      <div class="col-sm-6 item">
+                          <i class="fa fa-user-plus icon"></i>
+                          <h3 class="name">Użytkownicy do dodania</h3>
+
+                          @foreach (var user in added)
+                          {
+                              using (Html.BeginRouteForm(user))
+                              {
+                                  <br>
+                                  <input type="submit" value=@user.email style="border: 1px solid; border-radius: 15px; padding:10px 25px;text-decoration:none;color:white;background:none;cursor:pointer;font-size:16px;align-self:center; " />
+                              }
+                              j++;
+                          }
+                          @if (j == 0)
+                          {
+                              <button style="border: 1px solid; border-radius: 15px; padding:10px 25px;text-decoration:none;color:white;background:none;font-size:16px;align-self:center; ">
+                                  Brak możliwych użytkowników do dodania
+                              </button>
+                          }
+                          <br>
+                      </div>
+                      <div class="col-sm-6 item">
+                          <i class="fa fa-user-times icon"></i>
+                          <h3 class="name">Użytkownicy do usunięcia</h3>
 
 
-                    @foreach (var user in added)
-                    {
-                        using (Html.BeginRouteForm(user))
-                        {
-                            <br>
-                            <input type="submit" value=@user.email style="border: 1px solid; border-radius: 15px; padding:10px 25px;text-decoration:none;color:white;background:none;cursor:pointer;font-size:16px;align-self:center; " />
-                        }
-                        i++;
-                    }
-                    @if (i == 0)
-                    {
-                        <button style="border: 1px solid; border-radius: 15px; padding:10px 25px;text-decoration:none;color:white;background:none;font-size:16px;align-self:center; ">
-                            Brak możliwych użytkowników do usunięcia
-                        </button>
-                    }
-                    
-                    <br>
-                </div>
+                          @foreach (var user in noadded)
+                          {
+                              using (Html.BeginRouteForm(user))
+                              {
+                                  <br>
+                                  <input type="submit" value=@user.email style="border: 1px solid; border-radius: 15px; padding:10px 25px;text-decoration:none;color:white;background:none;cursor:pointer;font-size:16px;align-self:center; " />
+                              }
+                              i++;
+                          }
+                          @if (i == 0)
+                          {
+                              <button style="border: 1px solid; border-radius: 15px; padding:10px 25px;text-decoration:none;color:white;background:none;font-size:16px;align-self:center; ">
+                                  Brak możliwych użytkowników do usunięcia
+                              </button>
+                          }
 
-                <div class="col-sm-6 item">
-                    <i class="fa fa-user-plus icon"></i>
-                    <h3 class="name">Użytkownicy do dodania</h3>
+                          <br>
+                      </div>
 
-                    @foreach (var user in noadded)
-                    {
-                        using (Html.BeginRouteForm(user))
-                        {
-                            <br>
-                            <input type="submit" value=@user.email style="border: 1px solid; border-radius: 15px; padding:10px 25px;text-decoration:none;color:white;background:none;cursor:pointer;font-size:16px;align-self:center; " />
-                        }
-                        j++;
-                    }
-                    @if (j == 0)
-                    {
-                        <button style="border: 1px solid; border-radius: 15px; padding:10px 25px;text-decoration:none;color:white;background:none;font-size:16px;align-self:center; ">
-                            Brak możliwych użytkowników do dodania
-                        </button>
-                    }
-                    <br>
-                </div>
-            </div>
+
+                  </div>
         </div>
     </section>
     <script src="~/Scripts/jquery-3.4.1.min.js"
