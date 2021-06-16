@@ -41,15 +41,25 @@
         <nav id="sidebar">
             <div class="Clear-flex-box-col">
                 <div class="Flex-box-list-item">
+                    @Html.ActionLink("Moje zbiórki", "Index", "Gathering")
+                </div>
+                <div class="Flex-box-list-item">
+                    <a href="@Url.Action("AddCash", "User")">
+                        <img src="@Url.Content("~/Images/imgportfel.png")" />
+                    </a>
+                    <span style="color: white"> @wallet</span>
+                </div>
+                <div class="Flex-box-list-item">
                     Witaj @user_name!
                 </div>
-                    <div class="Clear-flex-box-row">
-                        <div class="Flex-box-list-item">
-                            <img src="@Url.Content("~/Images/door.png")" />
-                            @Html.ActionLink("Wyloguj", "Logout", "User")
-                        </div>
-                        @* tutaj następne linki do listy, podobnie jak u powyżej *@
-                    </div>
+
+                <div class="Flex-box-list-item">
+                    <img src="@Url.Content("~/Images/door.png")" />
+                    @Html.ActionLink("Wyloguj", "Logout", "User")
+                </div>
+
+                @* tutaj następne linki do listy, podobnie jak u powyżej *@
+
             </div>
         </nav>
         @RenderBody()

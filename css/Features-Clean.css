@@ -86,3 +86,52 @@
     font-size: 16px;
     cursor: pointer;
 }
+
+
+
+.chart {
+    border-radius: 50%;
+    width: 50%;
+    height: 40px;
+    padding-top: 50%;
+    float: left;
+    padding-right: 20px;
+}
+
+.key {
+    width: 50%;
+    height:40px;
+    float: left;
+    list-style: none;
+    display: table;
+    border-collapse: separate;
+
+}
+
+    .key > li {
+        display: table-row;
+    }
+
+    .key > * {
+        display: table-cell;
+        border-bottom: 12px solid white;
+    }
+
+.percent {
+    color: white;
+    padding: 10px 2px;
+    text-shadow: 0 0 1px black;
+    text-align: center;
+}
+
+.choice {
+    padding-left: 10px;
+}
+
+.red {
+    background: red;
+}
+
+.gray {
+    background: green;
+}
