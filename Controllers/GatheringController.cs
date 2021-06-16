@@ -344,7 +344,10 @@ namespace Prezentomat.Controllers
 
                 var img = addGatheringModel.gathering_image;
             var imag = "https://iv.pl/images/";
-                if (img.Equals("Komputer"))
+            if (img==null) {
+                return View(addGatheringModel);
+            }
+            else if (img.Equals("Komputer"))
                 {
                 imag += image[0];
                 }else if (img.Equals("Happy_Birthday"))
