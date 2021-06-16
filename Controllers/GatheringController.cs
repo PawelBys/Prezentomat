@@ -344,6 +344,7 @@ namespace Prezentomat.Controllers
                 gathering.target_amount = addGatheringModel.target_amount;
                 gathering.finish_date = addGatheringModel.finish_date;
                 gathering.gathering_name = addGatheringModel.gathering_name;
+                gathering.gathering_description = addGatheringModel.gathering_description;
                 gathering.creator_id = uid;
                 _context.GatheringDetails.Add(gathering);
                 _context.SaveChanges();
@@ -382,11 +383,17 @@ namespace Prezentomat.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "gathering_id,current_amount,target_amount,finish_date,gathering_name,creator_id")] GatheringClass gatheringClass)
+        public ActionResult Edit(int id, [Bind(Include = "gathering_id,current_amount,target_amount,finish_date,gathering_name,creator_id,gathering_description")] GatheringClass gatheringClass)
         {
+            var temp_gathering = _context.GatheringDetails.Find(id);
+
+
             if (ModelState.IsValid)
             {
-                _context.Entry(gatheringClass).State = EntityState.Modified;
+                temp_gathering.target_amount = gatheringClass.target_amount;
+                temp_gathering.finish_date = gatheringClass.finish_date;
+                temp_gathering.gathering_name = gatheringClass.gathering_name;
+                temp_gathering.gathering_description = gatheringClass.gathering_description;
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }

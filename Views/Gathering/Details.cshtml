@@ -57,15 +57,9 @@
             <div class="container">
                 <div class="intro">
                     <h2 class="text-center">@Html.DisplayFor(model => model.gathering_name)</h2>
-                    <p class="text-center">opis zbiórki</p>
+                    <p class="text-center">@Html.DisplayFor(model => model.gathering_description)</p>
                 </div>
                 <div class="row features">
-
-                    <div class="col-sm-6 col-lg-4 item">
-                        <i class="fa fa-gift icon"></i>
-                        <h3 class="name">Cel zbiórki</h3>
-                        <p class="description">zdjecie prezentu</p>
-                    </div>
 
                     <div class="col-sm-6 col-lg-4 item">
                         <i class="fa fa-euro icon"></i>
