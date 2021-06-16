@@ -180,6 +180,7 @@
     <Compile Include="CustomAuthorize.cs" />
     <Compile Include="DataContext\ApplicationDbContext.cs" />
     <Compile Include="Models\AddUserOfGathering.cs" />
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\PayoffHistoryClass.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

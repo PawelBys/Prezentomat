@@ -337,28 +337,65 @@ namespace Prezentomat.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(AddGatheringModel addGatheringModel)
         {
-            if (ModelState.IsValid)
-            {
-                GatheringClass gathering = new GatheringClass();
-                gathering.current_amount = 0;
-                gathering.target_amount = addGatheringModel.target_amount;
-                gathering.finish_date = addGatheringModel.finish_date;
-                gathering.gathering_name = addGatheringModel.gathering_name;
-                gathering.gathering_description = addGatheringModel.gathering_description;
-                gathering.creator_id = uid;
-                _context.GatheringDetails.Add(gathering);
-                _context.SaveChanges();
+            
+                String[] image ={ "f8f3c66c57163586ed870009cf4a3ec3.md.jpg" , "37a4f4a8280b214557d7c05f3d7a76d2.md.jpg" ,"2133f38b54f78853b5e9848422e7e434.jpg" ,
+                    "5a44dd8d3f705370964f43de9b02a000.md.jpg" , "6b4cf546e0f5c41a898e6e6a6b8a2328.png" ,
+                    "e0d00e943197121d362a44d82507678d.md.jpg"  ,"ba7eacee9938e52d08015f9035ffbd16.jpg" };
 
-                UserOfGatheringClass userOfGathering = new UserOfGatheringClass();
+                var img = addGatheringModel.gathering_image;
+            var imag = "https://iv.pl/images/";
+                if (img.Equals("Komputer"))
+                {
+                imag += image[0];
+                }else if (img.Equals("Happy_Birthday"))
+                {
+                imag += image[1];
+                }
+                else if (img.Equals("Podróż"))
+                {
+                imag += image[2];
+                }
+                else if (img.Equals("Urodziny_Taty"))
+                {
+                imag += image[3];
+                }
+                else if (img.Equals("Urodziny_Mamy"))
+                {
+                imag += image[4];
+                }
+                else if (img.Equals("Rower"))
+                {
+                imag += image[5];
+                }
+                else if (img.Equals("Telefon"))
+                {
+                imag += image[6];
+                }
+           
+                if (ModelState.IsValid)
+                {
+                    GatheringClass gathering = new GatheringClass();
+                    gathering.current_amount = 0;
+                    gathering.target_amount = addGatheringModel.target_amount;
+                    gathering.finish_date = addGatheringModel.finish_date;
+                    gathering.gathering_name = addGatheringModel.gathering_name;
+                    gathering.gathering_description = addGatheringModel.gathering_description;
+                    gathering.creator_id = uid;
+                    gathering.gathering_image = imag;
+                    _context.GatheringDetails.Add(gathering);
+                    _context.SaveChanges();
 
-                userOfGathering.user_id = uid;
-                userOfGathering.gathering_id = gathering.gathering_id;
-                userOfGathering.joining_date = DateTime.Now;
-                _context.UserOfGatheringDetails.Add(userOfGathering);   
-                _context.SaveChanges();
+                    UserOfGatheringClass userOfGathering = new UserOfGatheringClass();
 
-                return RedirectToAction("Index");
-            }
+                    userOfGathering.user_id = uid;
+                    userOfGathering.gathering_id = gathering.gathering_id;
+                    userOfGathering.joining_date = DateTime.Now;
+                    _context.UserOfGatheringDetails.Add(userOfGathering);
+                    _context.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+            
 
             return View(addGatheringModel);
         }

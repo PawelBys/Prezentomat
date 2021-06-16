@@ -26,5 +26,7 @@ namespace Prezentomat.Models
         public int creator_id { get; set; }
         [Required]
         public string gathering_description { get; set; }
+        [Required]
+        public string gathering_image { get; set; }
     }
 }

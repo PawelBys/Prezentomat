@@ -73,13 +73,7 @@
                         <p class="description">@Html.DisplayFor(model => model.finish_date)</p>
                     </div>
 
-                    <div class="col-sm-6 col-lg-4 item">
-                        <i class="fa fa-pie-chart icon"></i>
-                        <h3 class="name">Zebrana kwota</h3>
-                        <p class="description">
-                            <div id="piechart_3d" style="width: 280px; height: 100px;"></div>
-                        
-                    </div>
+
 
                     @if (creator)
                     {
@@ -113,19 +107,25 @@
                     @using (Html.BeginForm())
                     {
                         @Html.AntiForgeryToken()
-                <div class="col-sm-6 col-lg-4 item">
-                    <i class="fa fa-line-chart icon"></i>
-                    <h3 class="name">Dokonaj wpłaty/wypłaty na zbiórke</h3>
-                    <p class="description"> Możesz wypłacić tylko pieniądze, które sam wpłaciłeś na zbiórkę. @errorMessage</p>
-                    @Html.TextBoxFor(m => wallet, new { @type = "number", @class = "span4", @min = "0", @Value = "0", Style = "background: none; border:1px solid black; color: white;" })<br /><br>
-                    Wpłać @Html.RadioButtonFor(m => in_out, "Wpłać")
-                    &nbspWypłać @Html.RadioButtonFor(m => in_out, "Wypłać")<br />
-                    <input class="btn btn-primary" type="submit" value="Wpłać/Wypłać" style="width:100%;border:1px solid;border-radius:15px;">
-                </div>
+                        <div class="col-sm-6 col-lg-4 item">
+                            <i class="fa fa-line-chart icon"></i>
+                            <h3 class="name">Dokonaj wpłaty/wypłaty na zbiórke</h3>
+                            <p class="description"> Możesz wypłacić tylko pieniądze, które sam wpłaciłeś na zbiórkę. @errorMessage</p>
+                            @Html.TextBoxFor(m => wallet, new { @type = "number", @class = "span4", @min = "0", @Value = "0", Style = "background: none; border:1px solid black; color: white;" })<br /><br>
+                            Wpłać @Html.RadioButtonFor(m => in_out, "Wpłać")
+                            &nbspWypłać @Html.RadioButtonFor(m => in_out, "Wypłać")<br />
+                            <input class="btn btn-primary" type="submit" value="Wpłać/Wypłać" style="width:100%;border:1px solid;border-radius:15px;">
+                        </div>
                     }
 
+                    <div class="col-sm-6 col-lg-4 item">
+                        <i class="fa fa-pie-chart icon"></i>
+                        <h3 class="name">Zebrana kwota</h3>
+                        <p class="description">
+                            <div id="piechart_3d" style="width: 310px; height: 260px;"></div>
 
-                    
+                    </div>
+
 
                 </div>
             </div>

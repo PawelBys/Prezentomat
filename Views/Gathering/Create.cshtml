@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    var img = "https://iv.pl/images/" + ViewBag.image;
 }
 
 
@@ -66,7 +67,7 @@
                 @{ var imagePath = "";
                     if (Request["photoChoice"] != null)
                     {
-                        imagePath = @"https://iv.pl/images/" + Request["photoChoice"];
+                        imagePath = @img + Request["photoChoice"];
                     }
                 }
                 <body>
@@ -74,24 +75,32 @@
                         <div>
                             Wybierz:
 
-                            <select name="photoChoice">
-                                <option value="f8f3c66c57163586ed870009cf4a3ec3.md.jpg">Komputer</option>
-                                <option value="37a4f4a8280b214557d7c05f3d7a76d2.md.jpg">Happy Birthday</option>
-                                <option value="2133f38b54f78853b5e9848422e7e434.jpg">Podróż</option>
-                                <option value="5a44dd8d3f705370964f43de9b02a000.md.jpg">Urodziny Taty</option>
-                                <option value="6b4cf546e0f5c41a898e6e6a6b8a2328.png">Urodziny Mamy</option>
-                                <option value="e0d00e943197121d362a44d82507678d.md.jpg">Rower</option>
-                                <option value="ba7eacee9938e52d08015f9035ffbd16.jpg">Telefon</option>
+
+                            @Html.DropDownListFor(m => m.gathering_image,
+                            new SelectList(Enum.GetValues(typeof(Prezentomat.Models.image))),
+                            "Select Gender")
+
+                            <!--
+    <select name="photoChoice">
+        <option value="f8f3c66c57163586ed870009cf4a3ec3.md.jpg">Komputer</option>
+        <option value="37a4f4a8280b214557d7c05f3d7a76d2.md.jpg">Happy Birthday</option>
+        <option value="2133f38b54f78853b5e9848422e7e434.jpg">Podróż</option>
+        <option value="5a44dd8d3f705370964f43de9b02a000.md.jpg">Urodziny Taty</option>
+        <option value="6b4cf546e0f5c41a898e6e6a6b8a2328.png">Urodziny Mamy</option>
+        <option value="e0d00e943197121d362a44d82507678d.md.jpg">Rower</option>
+        <option value="ba7eacee9938e52d08015f9035ffbd16.jpg">Telefon</option>
 
 
 
-                            </select> <input type="submit" value="Pokaż" />
-                            &nbsp;
+                            </select>
+
+                             <input type="submit" value="Pokaż" />-->
+
                         </div>
                         <div style="padding:10px;">
                             @if (imagePath != "")
                             {
-                                <img src="@imagePath" alt="Sample Image" width="200px" height="200" />
+                                <img src="https://iv.pl/images/" alt="Sample Image" width="200px" height="200px" />
                             }
                         </div>
                     </form>
