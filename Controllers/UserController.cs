@@ -274,12 +274,17 @@ namespace Prezentomat.Controllers
             wallet = _context.UserDetails.Where(p => p.user_id == id).Single().wallet;
             ViewBag.wallet = wallet;
 
+            var temp_user = _context.UserDetails.Find(id);
+
             if (ModelState.IsValidField("email") && ModelState.IsValidField("firstname") && ModelState.IsValidField("lastname") && ModelState.IsValidField("birthdate")) 
             {
-                _context.Entry(userClass).State = EntityState.Modified;
-               // _context.SaveChanges();
+                temp_user.email = userClass.email;
+                temp_user.firstname = userClass.firstname;
+                temp_user.lastname = userClass.lastname;
+                temp_user.birthdate = userClass.birthdate;
+                _context.SaveChanges();
 
-                // tu sypie błędem
+               
 
                 return RedirectToAction("Index");
             }
