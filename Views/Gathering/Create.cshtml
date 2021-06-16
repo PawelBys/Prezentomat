@@ -52,7 +52,15 @@
                     </div>
                 </div>
 
+                Opis zbiórki
+                <div class="Clear-flex-box-col">
+                    <div class="Flex-box-input">
+                        <img src="~/Images/birthday.png" />
+                        @Html.EditorFor(model => model.gathering_description, new { htmlAttributes = new { @class = "form-control" } })
+                        <br>
 
+                    </div>
+                </div>
 
 
                 <input type="submit" value="Stwórz" style="border: 1px solid; border-radius: 15px" />
