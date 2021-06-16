@@ -55,6 +55,7 @@
                                             @if (item.creator_id == user_id)
                                             {
                                                 @Html.ActionLink("Edytuj", "Edit", new { id = item.gathering_id }, new { @class = "btn btn-sm btn-outline-secondary" })
+                                                @Html.ActionLink("Usuń", "Delete", new { id = item.gathering_id }, new { @class = "btn btn-sm btn-outline-secondary" })
                                             }
                                         </div>
                                         <small class="text-muted">@Html.DisplayFor(modelItem => item.finish_date)</small>

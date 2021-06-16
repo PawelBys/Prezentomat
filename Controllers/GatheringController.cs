@@ -275,8 +275,25 @@ namespace Prezentomat.Controllers
                 }
                 else if(userOfGatherings==1)
                 {
-                    _context.UserOfGatheringDetails.Remove(_context.UserOfGatheringDetails.Where(b => b.gathering_id == id).Where(c => c.user_id == userClass.user_id).Single());
+                    UserOfGatheringClass userOfGatheringClass = _context.UserOfGatheringDetails.Where(b => b.gathering_id == id).Where(c => c.user_id == userClass.user_id).Single();
+                    UserClass user = _context.UserDetails.Find(userOfGatheringClass.user_id);
+                    user.wallet = wallet + userOfGatheringClass.amount_of_user_cash_in_gathering;
                     _context.SaveChanges();
+                    var payment = _context.PaymentHistoryDetails.Where(a => a.user_of_gathering_id == userOfGatheringClass.user_of_gathering_id).ToList();
+                    for (int j = 0; j < payment.Count(); j++)
+                    {
+                        _context.PaymentHistoryDetails.Remove(payment[j]);
+                    }
+                    _context.SaveChanges();
+                    var payoff = _context.PayoffHistoryDetails.Where(a => a.id_user_of_gathering == userOfGatheringClass.user_of_gathering_id).ToList();
+                    for (int j = 0; j < payoff.Count(); j++)
+                    {
+                        _context.PayoffHistoryDetails.Remove(payoff[j]);
+                    }
+                    _context.SaveChanges();
+                    _context.UserOfGatheringDetails.Remove(userOfGatheringClass);
+                    _context.SaveChanges();
+
                 }
                 return RedirectToAction("AddUser", id);
             }
@@ -460,9 +477,41 @@ namespace Prezentomat.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+
+            var gathering = _context.GatheringDetails.Find(id);
+            var userofgathering = _context.UserOfGatheringDetails.Where(d => d.gathering_id == id).ToList();
+            
+
+            for(int i = 0; i < userofgathering.Count(); i++)
+            {
+                
+                UserOfGatheringClass userOfGatheringClass = userofgathering[i];
+                UserClass user = _context.UserDetails.Find(userOfGatheringClass.user_id);
+                user.wallet = wallet + userOfGatheringClass.amount_of_user_cash_in_gathering;
+                _context.SaveChanges();
+                var payment = _context.PaymentHistoryDetails.Where(a => a.user_of_gathering_id == userOfGatheringClass.user_of_gathering_id).ToList();
+                for(int j = 0; j < payment.Count(); j++)
+                {
+                    _context.PaymentHistoryDetails.Remove(payment[j]);
+                }
+                _context.SaveChanges();
+                var payoff = _context.PayoffHistoryDetails.Where(a => a.id_user_of_gathering == userOfGatheringClass.user_of_gathering_id).ToList();
+                for (int j = 0; j < payoff.Count(); j++)
+                {
+                    _context.PayoffHistoryDetails.Remove(payoff[j]);
+                }
+                _context.SaveChanges();
+                _context.UserOfGatheringDetails.Remove(userOfGatheringClass);
+                _context.SaveChanges();
+            }
+
+            _context.GatheringDetails.Remove(gathering);
+            _context.SaveChanges();
+
+            /*
             GatheringClass gatheringClass = _context.GatheringDetails.Find(id);
             _context.GatheringDetails.Remove(gatheringClass);
-            _context.SaveChanges();
+            _context.SaveChanges();*/
             return RedirectToAction("Index");
         }
 
