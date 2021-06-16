@@ -121,7 +121,10 @@ namespace Prezentomat.Controllers
             }
             ViewBag.wplaty = wplaty;
             ViewBag.size = s;
-            
+            var procent = gatheringClass.current_amount;
+            var procent1 = gatheringClass.target_amount - procent;
+            ViewBag.procent = procent;
+            ViewBag.procent1 = procent1;
 
             if (gatheringClass == null)
             {

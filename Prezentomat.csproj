@@ -210,6 +210,8 @@
     <Content Include="Images\admin.png" />
     <Content Include="Images\at.png" />
     <Content Include="Images\birthday.png" />
+    <Content Include="Images\cash.png" />
+    <Content Include="Images\data.png" />
     <Content Include="Images\door.png" />
     <Content Include="Images\facebook.png" />
     <Content Include="Images\instagram.png" />
