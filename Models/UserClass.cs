@@ -23,7 +23,7 @@ namespace Prezentomat.Models
         [Required] 
         [MinLength(6)] 
         public string password { get; set; }
-
+        [Required]
         public string firstname { get; set; }
 
         [Required] 
