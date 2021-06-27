@@ -355,9 +355,9 @@ namespace Prezentomat.Controllers
         public ActionResult Create(AddGatheringModel addGatheringModel)
         {
             
-                String[] image ={ "f8f3c66c57163586ed870009cf4a3ec3.md.jpg" , "37a4f4a8280b214557d7c05f3d7a76d2.md.jpg" ,"2133f38b54f78853b5e9848422e7e434.jpg" ,
-                    "5a44dd8d3f705370964f43de9b02a000.md.jpg" , "6b4cf546e0f5c41a898e6e6a6b8a2328.png" ,
-                    "e0d00e943197121d362a44d82507678d.md.jpg"  ,"ba7eacee9938e52d08015f9035ffbd16.jpg" };
+                String[] image ={ "796028b6a3b1523b8fcc0b6b2210ae75.md.jpg" , "d3736de24cd10943fdfee1b3ae91b9db.md.jpg" ,"7a008fdc1ad6eae95328980a348672ff.jpg" ,
+                    "d8d9e6b77c7248b06c4df29bdb3d9a73.md.jpg" , "5f230248b207f05ef58b567f0304ebe0.th.png" ,
+                    "c28cb6c3e9e4197c56c5204fa7492997.md.jpg"  ,"95588d991da8c11f05a63880558a4f30.th.jpg" };
 
                 var img = addGatheringModel.gathering_image;
             var imag = "https://iv.pl/images/";
